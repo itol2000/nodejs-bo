@@ -1,0 +1,14 @@
+# Render 一键部署蓝图（部署 prod-dashboard 子目录中的看板后端）
+# 注意：本仓库根目录另有 nodejs-argo 项目，render.yaml 通过 rootDir 仅部署看板子目录，互不干扰。
+services:
+  - type: web
+    name: prod-dashboard
+    runtime: node
+    rootDir: prod-dashboard
+    plan: free
+    startCommand: node server.js
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production

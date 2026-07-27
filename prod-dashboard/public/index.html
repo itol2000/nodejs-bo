@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0f766e">
+<title>生产日报看板</title>
+<style>
+  :root{
+    --bg:#f1f5f9; --card:#ffffff; --ink:#0f172a; --sub:#64748b;
+    --teal:#0f766e; --teal-d:#115e59; --blue:#2563eb; --amber:#f59e0b;
+    --red:#dc2626; --green:#16a34a; --line:#e2e8f0; --chip:#e2e8f0;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;padding:0;height:100%;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    background:var(--bg); color:var(--ink); font-size:15px; line-height:1.5;
+    padding-bottom:64px; -webkit-font-smoothing:antialiased;
+  }
+  header{
+    background:linear-gradient(135deg,var(--teal),var(--teal-d));
+    color:#fff; padding:14px 16px 12px; position:sticky; top:0; z-index:20;
+    box-shadow:0 2px 8px rgba(0,0,0,.15);
+  }
+  header .t{font-size:17px; font-weight:700; letter-spacing:.5px;}
+  header .d{font-size:12px; opacity:.85; margin-top:2px;}
+  header .role{font-size:11px; background:rgba(255,255,255,.22); border:1px solid rgba(255,255,255,.4); border-radius:6px; padding:1px 6px; margin-left:6px;}
+  nav{
+    position:fixed; bottom:0; left:0; right:0; display:flex; z-index:30;
+    background:#fff; border-top:1px solid var(--line); box-shadow:0 -2px 10px rgba(0,0,0,.06);
+  }
+  nav button{
+    flex:1; border:none; background:none; padding:8px 2px 6px; font-size:11px; color:var(--sub);
+    display:flex; flex-direction:column; align-items:center; gap:2px; cursor:pointer;
+  }
+  nav button .ic{font-size:20px; line-height:1;}
+  nav button.on{color:var(--teal); font-weight:600;}
+  section{display:none; padding:14px 12px 8px; animation:fade .2s;}
+  section.on{display:block;}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  .card{background:var(--card); border-radius:14px; padding:14px; margin-bottom:12px; box-shadow:0 1px 3px rgba(0,0,0,.06);}
+  .card h3{margin:0 0 10px; font-size:15px; display:flex; align-items:center; gap:6px;}
+  .card h3 .dot{width:8px;height:8px;border-radius:50%;background:var(--teal);}
+  .row{display:flex; align-items:center; justify-content:space-between; padding:7px 0; border-bottom:1px dashed var(--line);}
+  .row:last-child{border-bottom:none;}
+  .row .nm{font-weight:600;}
+  .row .u{font-size:11px; color:var(--sub); margin-left:4px; font-weight:400;}
+  .muted{color:var(--sub); font-size:12px;}
+  .pill{display:inline-block; padding:2px 8px; border-radius:999px; font-size:11px; font-weight:600;}
+  .pill.ok{background:#dcfce7; color:var(--green);}
+  .pill.warn{background:#fee2e2; color:var(--red);}
+  .pill.info{background:#dbeafe; color:var(--blue);}
+  input,select,textarea{
+    width:100%; border:1px solid var(--line); border-radius:10px; padding:10px 12px;
+    font-size:15px; background:#fff; color:var(--ink); outline:none; font-family:inherit;
+  }
+  input:focus,select:focus,textarea:focus{border-color:var(--teal);}
+  label{display:block; font-size:12px; color:var(--sub); margin:10px 0 4px;}
+  .seg{display:flex; background:var(--chip); border-radius:10px; padding:3px; margin:6px 0;}
+  .seg button{flex:1; border:none; background:none; padding:9px; border-radius:8px; font-size:14px; font-weight:600; color:var(--sub); cursor:pointer;}
+  .seg button.on{background:#fff; color:var(--teal); box-shadow:0 1px 3px rgba(0,0,0,.12);}
+  .btn{
+    display:block; width:100%; border:none; border-radius:12px; padding:13px; font-size:15px;
+    font-weight:700; cursor:pointer; background:var(--teal); color:#fff; margin-top:6px;
+  }
+  .btn.blue{background:var(--blue);} .btn.amber{background:var(--amber);} .btn.ghost{background:#fff;color:var(--teal);border:1px solid var(--teal);}
+  .btn.red{background:var(--red);} .btn.sm{padding:8px; font-size:13px; width:auto; display:inline-block;}
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:8px;}
+  .mat-item{border:1px solid var(--line); border-radius:12px; padding:10px; margin-bottom:10px;}
+  .mat-item .top{display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;}
+  .mat-item .fields{display:grid; grid-template-columns:1fr 1fr; gap:6px;}
+  .mat-item .fields .f{font-size:11px; color:var(--sub);}
+  .stock-preview{font-size:13px; font-weight:700; margin-top:6px;}
+  .up{color:var(--green);} .down{color:var(--red);}
+  .warn-card{background:#fff5f5; border:1px solid #fecaca; border-radius:12px; padding:10px 12px; margin-bottom:10px;}
+  .warn-card .t{color:var(--red); font-weight:700; font-size:13px; display:flex; justify-content:space-between;}
+  .empty{text-align:center; color:var(--sub); padding:30px 10px; font-size:13px;}
+  .modal-mask{position:fixed; inset:0; background:rgba(15,23,42,.5); z-index:50; display:none; align-items:flex-end;}
+  .modal-mask.on{display:flex;}
+  .modal{background:#fff; width:100%; border-radius:18px 18px 0 0; padding:18px 16px 24px; animation:slide .25s; max-height:90vh; overflow-y:auto;}
+  @keyframes slide{from{transform:translateY(100%)}to{transform:none}}
+  .modal h4{margin:0 0 12px; font-size:16px;}
+  .close-x{float:right; font-size:22px; color:var(--sub); cursor:pointer; line-height:1; margin-top:-4px;}
+  .toast{position:fixed; left:50%; top:50%; transform:translate(-50%,-50%); background:rgba(15,23,42,.9); color:#fff; padding:12px 18px; border-radius:10px; font-size:14px; z-index:99; opacity:0; pointer-events:none; transition:opacity .2s; max-width:80%; text-align:center;}
+  .toast.on{opacity:1;}
+  .chip-row{display:flex; flex-wrap:wrap; gap:6px; margin-top:8px;}
+  .chip{background:var(--chip); border-radius:999px; padding:5px 10px; font-size:12px; color:var(--ink);}
+  .legend{display:flex; flex-wrap:wrap; gap:10px; margin-top:8px; font-size:11px; color:var(--sub);}
+  .legend span{display:flex; align-items:center; gap:4px;}
+  .legend i{width:10px;height:10px;border-radius:3px;display:inline-block;}
+  .stat-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:10px;}
+  .stat{background:linear-gradient(135deg,#f0fdfa,#fff); border:1px solid #ccfbf1; border-radius:12px; padding:10px;}
+  .stat .v{font-size:20px; font-weight:800; color:var(--teal-d);}
+  .stat .k{font-size:11px; color:var(--sub); margin-top:2px;}
+  .stat-sm{background:#f8fafc; border:1px solid var(--line); border-radius:10px; padding:8px;}
+  .stat-sm .v{font-size:14px; font-weight:700; color:var(--ink);}
+  .stat-sm .k{font-size:10px; color:var(--sub); margin-top:2px;}
+  .bar-row{display:flex; align-items:center; gap:8px; margin:7px 0; font-size:12px;}
+  .bar-track{flex:1; background:var(--chip); border-radius:6px; height:16px; overflow:hidden; position:relative;}
+  .bar-fill{height:100%; border-radius:6px;}
+  .bar-thr{position:absolute; top:-2px; bottom:-2px; width:2px; background:var(--red);}
+  svg{display:block; width:100%; height:auto;}
+  .scroll-x{overflow-x:auto; -webkit-overflow-scrolling:touch;}
+  table.mini{width:100%; border-collapse:collapse; font-size:12px;}
+  table.mini th,table.mini td{border:1px solid var(--line); padding:6px 4px; text-align:center;}
+  table.mini th{background:#f8fafc; color:var(--sub); font-weight:600;}
+  .tag-main{background:#fff7ed; color:#c2410c;} .tag-sub{background:#f1f5f9; color:#475569;}
+  a.link{color:var(--blue); text-decoration:none; font-size:13px;}
+  body.locked nav button.prot{opacity:.4;}
+  body.locked nav button.prot .ic{filter:grayscale(1);}
+  /* 登录页 */
+  .login-wrap{position:fixed; inset:0; z-index:60; background:linear-gradient(135deg,var(--teal),var(--teal-d)); display:flex; align-items:center; justify-content:center; padding:24px;}
+  .login-card{background:#fff; border-radius:18px; padding:26px 22px; width:100%; max-width:340px; box-shadow:0 20px 50px rgba(0,0,0,.25);}
+  .login-card .logo{text-align:center; font-size:26px; margin-bottom:4px;}
+  .login-card h2{text-align:center; margin:6px 0 4px; font-size:18px;}
+  .login-card .sub{text-align:center; color:var(--sub); font-size:12px; margin-bottom:18px;}
+  .login-card .hint{background:#f0fdfa; border:1px solid #ccfbf1; border-radius:10px; padding:8px 10px; font-size:11px; color:var(--teal-d); margin-top:14px; line-height:1.6;}
+  .login-card .seg2{display:flex; gap:6px; margin-bottom:6px;}
+  .login-card .seg2 button{flex:1; border:1px solid var(--line); background:#fff; border-radius:10px; padding:9px; font-size:13px; color:var(--sub); cursor:pointer;}
+  .login-card .seg2 button.on{border-color:var(--teal); color:var(--teal); font-weight:600; background:#f0fdfa;}
+</style>
+</head>
+<body>
+
+<!-- 登录页 -->
+<div class="login-wrap" id="loginWrap">
+  <div class="login-card">
+    <div class="logo">🏭</div>
+    <h2>生产日报看板</h2>
+    <div class="sub">请登录后使用</div>
+    <div class="seg2" id="loginModeSeg">
+      <button data-mode="admin" class="on">管理员登录</button>
+      <button data-mode="viewer">查看员登录</button>
+    </div>
+    <div id="adminLoginFields">
+      <label>账号</label>
+      <input type="text" id="loginUser" placeholder="请输入管理员账号" autocomplete="off">
+      <label>密码</label>
+      <input type="password" id="loginPassAdmin" placeholder="请输入管理员密码">
+    </div>
+    <div id="viewerLoginFields" style="display:none">
+      <label>查看密码</label>
+      <input type="password" id="loginPassViewer" placeholder="请输入查看密码">
+    </div>
+    <button class="btn" onclick="doLogin()" style="margin-top:14px">登 录</button>
+    <div class="hint">账号与密码由管理员分配，登录后按权限使用</div>
+  </div>
+</div>
+
+<header>
+  <div class="t">⚙️ 生产日报看板 <span class="role" id="roleBadge">查看员</span></div>
+  <div class="d" id="hdrDate">—</div>
+  <div class="d" id="syncBadge" style="display:none;color:#fff;opacity:.9"></div>
+  <button id="lockBtn" onclick="toggleLock()" style="position:absolute;right:14px;top:12px;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.4);color:#fff;border-radius:8px;padding:4px 9px;font-size:12px;cursor:pointer;">🔒 锁定</button>
+</header>
+
+<!-- 看板 -->
+<section id="sec-board" class="on">
+  <div class="card">
+    <h3><span class="dot"></span>今日班次</h3>
+    <div class="seg" id="boardShiftSeg">
+      <button data-s="day" class="on">白班</button>
+      <button data-s="night">夜班</button>
+    </div>
+    <div id="boardShiftBody"></div>
+  </div>
+  <div class="card">
+    <h3><span class="dot"></span>成品累计</h3>
+    <div class="stat-grid" id="boardProductStats"></div>
+  </div>
+  <div class="card">
+    <h3><span class="dot"></span>原料累计用量</h3>
+    <div class="stat-grid" id="boardMatStats"></div>
+  </div>
+  <div class="card">
+    <h3><span class="dot"></span>库存预警 <span class="pill info" id="warnCount">0</span></h3>
+    <div id="boardWarn"></div>
+  </div>
+</section>
+
+<!-- 录入 -->
+<section id="sec-input">
+  <div class="card">
+    <div class="grid2">
+      <div>
+        <label>日期</label>
+        <input type="date" id="inDate">
+      </div>
+      <div>
+        <label>班次</label>
+        <div class="seg" id="inShiftSeg">
+          <button data-s="day" class="on">白班</button>
+          <button data-s="night">夜班</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h3><span class="dot"></span>原料使用 / 库存</h3>
+    <div id="matInputs"></div>
+    <p class="muted">"期初库存"仅在该原料首次录入时填写；其余班次自动按"上期结存 − 用量 + 入库"计算。</p>
+  </div>
+  <div class="card">
+    <h3><span class="dot"></span>成品产出</h3>
+    <div id="prodInputs"></div>
+  </div>
+  <div class="card">
+    <label>备注</label>
+    <textarea id="inNote" rows="2" placeholder="可选，如停机、检修、异常等"></textarea>
+    <button class="btn" id="saveBtn" onclick="saveRecord()">保存本班次数据</button>
+    <button class="btn red sm" id="delBtn" style="display:none;margin-top:8px;" onclick="deleteRecord()">删除本班次记录</button>
+  </div>
+</section>
+
+<!-- 图表 -->
+<section id="sec-chart">
+  <div class="card">
+    <h3><span class="dot"></span>成品产量趋势（曲线对比）</h3>
+    <div class="seg" id="chartModeSeg">
+      <button data-m="merge" class="on">按日合计</button>
+      <button data-m="shift">分白/夜班</button>
+    </div>
+    <div id="prodChart"></div>
+    <div class="legend" id="prodLegend"></div>
+  </div>
+  <div class="card">
+    <h3><span class="dot"></span>原料用量趋势（曲线对比）</h3>
+    <div id="matChart"></div>
+    <div class="legend" id="matLegend"></div>
+  </div>
+  <div class="card">
+    <h3><span class="dot"></span>当前库存 vs 预警阈值</h3>
+    <div id="invChart"></div>
+    <p class="muted">红线为预警阈值，库存低于阈值即触发预警。</p>
+  </div>
+</section>
+
+<!-- 管理 -->
+<section id="sec-manage">
+  <div class="card">
+    <h3><span class="dot"></span>原料管理 <span class="pill info" id="matCount">0</span></h3>
+    <div id="matList"></div>
+    <button class="btn ghost" onclick="openMatModal()">＋ 新增原料</button>
+  </div>
+  <div class="card">
+    <h3><span class="dot"></span>成品管理 <span class="pill info" id="prodCount">0</span></h3>
+    <div id="prodList"></div>
+    <button class="btn ghost" onclick="openProdModal()">＋ 新增成品</button>
+  </div>
+</section>
+
+<!-- 数据 -->
+<section id="sec-data">
+  <div class="card">
+    <h3><span class="dot"></span>数据保存</h3>
+    <p class="muted">所有数据自动保存在本机浏览器（localStorage）。建议定期导出备份，换设备/清缓存前务必备份。</p>
+    <button class="btn blue" onclick="exportJSON()">⬇ 导出完整备份 (JSON)</button>
+    <button class="btn ghost" onclick="document.getElementById('impFile').click()">⬆ 导入备份 (JSON)</button>
+    <input type="file" id="impFile" accept="application/json" style="display:none" onchange="importJSON(event)">
+  </div>
+  <div class="card">
+    <h3><span class="dot green"></span>云端实时同步</h3>
+    <p class="muted">部署到带后端的服务器后，你录入的数据会自动同步到网上，所有同事打开链接即时看到（无需手动发布）。下方按钮可导出一份离线备份文件以防万一。</p>
+    <button class="btn green" onclick="publishToWeb()">📤 导出离线备份 (JSON)</button>
+  </div>
+  <div class="card">
+    <h3><span class="dot"></span>导出报表</h3>
+    <button class="btn" onclick="exportRecordsCSV()">📄 导出生产记录 (Excel/CSV)</button>
+    <button class="btn ghost" onclick="exportInventoryCSV()">📦 导出库存快照 (Excel/CSV)</button>
+  </div>
+  <div class="card">
+    <h3><span class="dot"></span>修改管理员密码</h3>
+    <label>当前管理员密码</label><input id="curPass" type="password" placeholder="默认 admin123">
+    <label>新管理员密码</label><input id="newPass" type="password" placeholder="留空则不修改">
+    <button class="btn" onclick="setPasscode()">保存密码</button>
+  </div>
+  <div class="card">
+    <h3><span class="dot"></span>历史记录</h3>
+    <div class="scroll-x"><div id="histTable"></div></div>
+  </div>
+  <div class="card">
+    <h3><span class="dot"></span>危险操作</h3>
+    <button class="btn red" onclick="clearAll()">清空全部数据</button>
+  </div>
+</section>
+
+<!-- 原料弹窗 -->
+<div class="modal-mask" id="matModal">
+  <div class="modal">
+    <span class="close-x" onclick="closeModal('matModal')">×</span>
+    <h4>新增 / 编辑原料</h4>
+    <input type="hidden" id="matId">
+    <label>名称</label><input id="matName" placeholder="如 硫酸亚铁">
+    <div class="grid2">
+      <div><label>单位</label><input id="matUnit" placeholder="吨 / m³"></div>
+      <div><label>预警阈值</label><input id="matThr" type="number" placeholder="低于此值预警"></div>
+    </div>
+    <label>期初库存（首次录入）</label>
+    <input id="matInit" type="number" placeholder="首次录入的库存数量">
+    <button class="btn" onclick="saveMat()">保存</button>
+  </div>
+</div>
+
+<!-- 成品弹窗 -->
+<div class="modal-mask" id="prodModal">
+  <div class="modal">
+    <span class="close-x" onclick="closeModal('prodModal')">×</span>
+    <h4>新增 / 编辑成品</h4>
+    <input type="hidden" id="prodId">
+    <label>名称</label><input id="prodName" placeholder="如 硫酸钠">
+    <div class="grid2">
+      <div><label>单位</label><input id="prodUnit" placeholder="吨"></div>
+      <div>
+        <label>类型</label>
+        <select id="prodType">
+          <option value="main">主产品</option>
+          <option value="sub">副产品</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn" onclick="saveProd()">保存</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============ 数据层 ============ */
+const KEY = 'prod_dashboard_v3';
+const COLORS = ['#0f766e','#2563eb','#f59e0b','#dc2626','#16a34a','#7c3aed','#db2777','#0891b2','#ca8a04','#4f46e5'];
+// 内嵌的导入数据（作为首次默认数据）
+const EMBEDDED_DEFAULT = {"materials":[{"id":"m1","name":"电解质","unit":"吨","threshold":8},{"id":"m2","name":"净水剂","unit":"吨","threshold":5},{"id":"m3","name":"盐酸","unit":"吨","threshold":6},{"id":"m4","name":"氢氧化钠","unit":"吨","threshold":5},{"id":"m5","name":"碳酸钠","unit":"吨","threshold":6},{"id":"m6","name":"氢氧化钙","unit":"吨","threshold":5},{"id":"m7","name":"天然气","unit":"m³","threshold":2000}],"products":[{"id":"p1","name":"碳酸锂","unit":"吨","type":"main"},{"id":"p2","name":"黑泥","unit":"吨","type":"sub"},{"id":"p3","name":"黄泥","unit":"吨","type":"sub"},{"id":"p4","name":"盐","unit":"吨","type":"sub"}],"passcode":"123456","inventory":{"m1":141,"m2":191,"m3":17.1,"m4":75,"m5":11.67,"m6":14.5,"m7":0},"initSet":{"m1":true,"m2":true,"m3":true,"m4":true,"m5":true,"m6":true,"m7":true},"records":[{"id":"r1","date":"2026-07-02","shift":"day","materials":{"m1":{"usage":0,"add":33},"m2":{"usage":0,"add":33},"m3":{"usage":0,"add":0},"m4":{"usage":0,"add":0},"m5":{"usage":0,"add":0},"m6":{"usage":0,"add":0},"m7":{"usage":0,"add":0}},"products":{"p1":0,"p2":0,"p3":0,"p4":0},"note":"","ts":1784292087000},{"id":"r2","date":"2026-07-02","shift":"night","materials":{"m1":{"usage":18,"add":33},"m2":{"usage":16.2,"add":33},"m3":{"usage":1.2,"add":0},"m4":{"usage":10,"add":25},"m5":{"usage":0,"add":0},"m6":{"usage":0.5,"add":0},"m7":{"usage":1400,"add":0}},"products":{"p1":0,"p2":0,"p3":0,"p4":1.216},"note":"","ts":1784292057000},{"id":"r3","date":"2026-07-03","shift":"day","materials":{"m1":{"usage":12,"add":0},"m2":{"usage":10.8,"add":0},"m3":{"usage":0.8,"add":0},"m4":{"usage":10,"add":30},"m5":{"usage":0,"add":0},"m6":{"usage":0,"add":0},"m7":{"usage":0,"add":0}},"products":{"p1":0,"p2":19.892,"p3":8.531,"p4":10.47},"note":"","ts":1784292329000},{"id":"r4","date":"2026-07-03","shift":"night","materials":{"m1":{"usage":12,"add":33},"m2":{"usage":10.8,"add":33},"m3":{"usage":0.8,"add":0},"m4":{"usage":5,"add":0},"m5":{"usage":1.3,"add":0},"m6":{"usage":0,"add":0},"m7":{"usage":0,"add":0}},"products":{"p1":0.488,"p2":17.87,"p3":10.158,"p4":8.088},"note":"","ts":1784292556000},{"id":"r5","date":"2026-07-04","shift":"day","materials":{"m1":{"usage":12,"add":0},"m2":{"usage":10.2,"add":0},"m3":{"usage":0.7,"add":0},"m4":{"usage":10,"add":25},"m5":{"usage":1.5,"add":0},"m6":{"usage":0.5,"add":0},"m7":{"usage":1400,"add":23000}},"products":{"p1":1.17,"p2":16.962,"p3":11.366,"p4":2.422},"note":"","ts":1784292967000},{"id":"r6","date":"2026-07-04","shift":"night","materials":{"m1":{"usage":0,"add":0},"m2":{"usage":0,"add":0},"m3":{"usage":0,"add":0},"m4":{"usage":0,"add":0},"m5":{"usage":1.25,"add":0},"m6":{"usage":0,"add":0},"m7":{"usage":0,"add":0}},"products":{"p1":1.147,"p2":0,"p3":0,"p4":0},"note":"","ts":1784293034000},{"id":"r7","date":"2026-07-05","shift":"night","materials":{"m1":{"usage":0,"add":0},"m2":{"usage":0,"add":0},"m3":{"usage":0,"add":0},"m4":{"usage":0,"add":0},"m5":{"usage":0,"add":0},"m6":{"usage":0,"add":0},"m7":{"usage":0,"add":0}},"products":{"p1":0,"p2":0,"p3":0,"p4":0},"note":"plc故障停产两天","ts":1784294187000},{"id":"r8","date":"2026-07-06","shift":"night","materials":{"m1":{"usage":0,"add":0},"m2":{"usage":0,"add":0},"m3":{"usage":0,"add":0},"m4":{"usage":0,"add":0},"m5":{"usage":0,"add":0},"m6":{"usage":0,"add":0},"m7":{"usage":0,"add":0}},"products":{"p1":0,"p2":0,"p3":0,"p4":7.444},"note":"","ts":1784294240000},{"id":"r9","date":"2026-07-07","shift":"day","materials":{"m1":{"usage":18,"add":0},"m2":{"usage":16.2,"add":0},"m3":{"usage":1.2,"add":0},"m4":{"usage":10,"add":0},"m5":{"usage":0,"add":0},"m6":{"usage":0,"add":0},"m7":{"usage":0,"add":0}},"products":{"p1":0.923,"p2":0,"p3":7.777,"p4":10.312},"note":"","ts":1784294397000},{"id":"r10","date":"2026-07-07","shift":"night","materials":{"m1":{"usage":18,"add":33},"m2":{"usage":16.2,"add":0},"m3":{"usage":1.2,"add":0},"m4":{"usage":10,"add":25},"m5":{"usage":0,"add":0},"m6":{"usage":0.5,"add":0},"m7":{"usage":1400,"add":0}},"products":{"p1":0.889,"p2":24.624,"p3":7.023,"p4":3.77},"note":"","ts":1784294648000},{"id":"r11","date":"2026-07-08","shift":"day","materials":{"m1":{"usage":18,"add":66},"m2":{"usage":16.2,"add":33},"m3":{"usage":1.2,"add":0},"m4":{"usage":10,"add":0},"m5":{"usage":0.39,"add":0},"m6":{"usage":0.5,"add":0},"m7":{"usage":1400,"add":0}},"products":{"p1":0.771,"p2":20.751,"p3":9.812,"p4":7.368},"note":"","ts":1784297273000},{"id":"r12","date":"2026-07-08","shift":"night","materials":{"m1":{"usage":12,"add":33},"m2":{"usage":16.2,"add":0},"m3":{"usage":1.2,"add":0},"m4":{"usage":0,"add":0},"m5":{"usage":1.8,"add":0},"m6":{"usage":0,"add":0},"m7":{"usage":1400,"add":0}},"products":{"p1":1.028,"p2":19.842,"p3":6.746,"p4":7.57},"note":"","ts":1784295647000},{"id":"r13","date":"2026-07-09","shift":"day","materials":{"m1":{"usage":18,"add":0},"m2":{"usage":16.2,"add":0},"m3":{"usage":1.2,"add":0},"m4":{"usage":10,"add":0},"m5":{"usage":0.89,"add":0},"m6":{"usage":0.5,"add":0},"m7":{"usage":1400,"add":0}},"products":{"p1":0.987,"p2":24.489,"p3":11.894,"p4":12.063},"note":"","ts":1784295935000},{"id":"r14","date":"2026-07-09","shift":"night","materials":{"m1":{"usage":18,"add":0},"m2":{"usage":16.2,"add":66},"m3":{"usage":1.5,"add":0},"m4":{"usage":10,"add":0},"m5":{"usage":0.9,"add":0},"m6":{"usage":0.5,"add":0},"m7":{"usage":1500,"add":0}},"products":{"p1":0.917,"p2":31.283,"p3":5.654,"p4":6.413},"note":"","ts":1784296062000},{"id":"r15","date":"2026-07-10","shift":"day","materials":{"m1":{"usage":18,"add":0},"m2":{"usage":16.2,"add":0},"m3":{"usage":1.5,"add":0},"m4":{"usage":10,"add":0},"m5":{"usage":2.5,"add":0},"m6":{"usage":0.5,"add":0},"m7":{"usage":1400,"add":0}},"products":{"p1":1.005,"p2":22.462,"p3":9.212,"p4":7.095},"note":"","ts":1784297505000},{"id":"r16","date":"2026-07-10","shift":"night","materials":{"m1":{"usage":24,"add":66},"m2":{"usage":21.6,"add":0},"m3":{"usage":2,"add":0},"m4":{"usage":20,"add":50},"m5":{"usage":1.5,"add":33},"m6":{"usage":1,"add":0},"m7":{"usage":1400,"add":0}},"products":{"p1":1.477,"p2":27.225,"p3":12.621,"p4":5.099},"note":"","ts":1784297693000},{"id":"r17","date":"2026-07-11","shift":"day","materials":{"m1":{"usage":18,"add":0},"m2":{"usage":16.2,"add":200},"m3":{"usage":1.5,"add":0},"m4":{"usage":10,"add":50},"m5":{"usage":2.5,"add":0},"m6":{"usage":0.5,"add":0},"m7":{"usage":1400,"add":0}},"products":{"p1":1.503,"p2":27.445,"p3":10.544,"p4":0},"note":"","ts":1784298911000},{"id":"r18","date":"2026-07-11","shift":"night","materials":{"m1":{"usage":18,"add":0},"m2":{"usage":16.2,"add":33},"m3":{"usage":1.5,"add":0},"m4":{"usage":10,"add":0},"m5":{"usage":2.5,"add":0},"m6":{"usage":0.5,"add":0},"m7":{"usage":1400,"add":0}},"products":{"p1":0.589,"p2":25.165,"p3":12.292,"p4":2.341},"note":"","ts":1784302369000},{"id":"r19","date":"2026-07-12","shift":"day","materials":{"m1":{"usage":18,"add":0},"m2":{"usage":16.2,"add":0},"m3":{"usage":1.5,"add":33},"m4":{"usage":0,"add":0},"m5":{"usage":0.9,"add":0},"m6":{"usage":0,"add":0},"m7":{"usage":1400,"add":0}},"products":{"p1":0.3,"p2":25.56,"p3":11.888,"p4":9.081},"note":"","ts":1784301321000},{"id":"r20","date":"2026-07-12","shift":"night","materials":{"m1":{"usage":18,"add":66},"m2":{"usage":16.2,"add":0},"m3":{"usage":1.5,"add":0},"m4":{"usage":10,"add":0},"m5":{"usage":2.5,"add":0},"m6":{"usage":0.5,"add":0},"m7":{"usage":1400,"add":0}},"products":{"p1":1.578,"p2":20.589,"p3":15.118,"p4":8.946},"note":"","ts":1784301546000},{"id":"r21","date":"2026-07-13","shift":"day","materials":{"m1":{"usage":12,"add":0},"m2":{"usage":10.8,"add":0},"m3":{"usage":1,"add":0},"m4":{"usage":10,"add":0},"m5":{"usage":2.2,"add":0},"m6":{"usage":0.5,"add":0},"m7":{"usage":1400,"add":0}},"products":{"p1":1.567,"p2":25.659,"p3":13.425,"p4":2.553},"note":"","ts":1784301682000},{"id":"r22","date":"2026-07-13","shift":"night","materials":{"m1":{"usage":24,"add":60},"m2":{"usage":21.6,"add":66},"m3":{"usage":2,"add":0},"m4":{"usage":0,"add":0},"m5":{"usage":0.53,"add":0},"m6":{"usage":0,"add":0},"m7":{"usage":1400,"add":0}},"products":{"p1":0.632,"p2":21.582,"p3":10.232,"p4":0},"note":"","ts":1784301881000},{"id":"r23","date":"2026-07-14","shift":"night","materials":{"m1":{"usage":18,"add":0},"m2":{"usage":16.2,"add":0},"m3":{"usage":1.5,"add":0},"m4":{"usage":10,"add":50},"m5":{"usage":2.2,"add":0},"m6":{"usage":0.5,"add":0},"m7":{"usage":1400,"add":0}},"products":{"p1":1.295,"p2":30.55,"p3":15.716,"p4":6.207},"note":"","ts":1784302264000},{"id":"r24","date":"2026-07-15","shift":"night","materials":{"m1":{"usage":30,"add":33},"m2":{"usage":27,"add":33},"m3":{"usage":3,"add":0},"m4":{"usage":10,"add":0},"m5":{"usage":2.5,"add":0},"m6":{"usage":1,"add":0},"m7":{"usage":1600,"add":0}},"products":{"p1":2.45,"p2":41.634,"p3":21.436,"p4":13.406},"note":"","ts":1784219425000},{"id":"r25","date":"2026-07-16","shift":"day","materials":{"m1":{"usage":18,"add":33},"m2":{"usage":16.2,"add":0},"m3":{"usage":1.8,"add":0},"m4":{"usage":10,"add":25},"m5":{"usage":1.5,"add":0},"m6":{"usage":0.5,"add":0},"m7":{"usage":1500,"add":0}},"products":{"p1":1.062,"p2":16.616,"p3":14.222,"p4":9.849},"note":"","ts":1784219703000},{"id":"r26","date":"2026-07-16","shift":"night","materials":{"m1":{"usage":18,"add":0},"m2":{"usage":16.2,"add":0},"m3":{"usage":1.8,"add":0},"m4":{"usage":10,"add":0},"m5":{"usage":1.5,"add":0},"m6":{"usage":0.5,"add":0},"m7":{"usage":1500,"add":0}},"products":{"p1":1.025,"p2":25.064,"p3":13.624,"p4":8.623},"note":"","ts":1784287694000},{"id":"r27","date":"2026-07-17","shift":"day","materials":{"m1":{"usage":18,"add":60},"m2":{"usage":16.2,"add":33},"m3":{"usage":1.8,"add":0},"m4":{"usage":10,"add":0},"m5":{"usage":1,"add":0},"m6":{"usage":0.5,"add":15},"m7":{"usage":1400,"add":0}},"products":{"p1":1.043,"p2":30.443,"p3":12.823,"p4":0},"note":"","ts":1784303033000}],"adminUser":"admin","adminPass":"admin123","viewerPass":"112233"};
+let state = null;
+let ui = { boardShift:'day', inShift:'day', chartMode:'merge' };
+let role = sessionStorage.getItem('prod_role')||'';   // 'admin' | 'viewer' | ''
+let pendingTab=null;
+let loginMode='admin';
+let sessionPass='';   // 本次会话的管理员密码（用于云端写入），不持久化
+const SYNC = { on:false, polling:false };   // 是否连接后端同步
+let currentTab='board';
+let _suppressPush=false;
+
+function todayStr(){
+  const d=new Date(); const p=n=>String(n).padStart(2,'0');
+  return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate());
+}
+function load(){
+  let s;
+  try{
+    s = JSON.parse(localStorage.getItem(KEY));
+    if(!s || !s.materials) s = null;
+  }catch(e){ s = null; }
+  if(!s) s = JSON.parse(JSON.stringify(EMBEDDED_DEFAULT));
+  // 确保账号字段存在（兼容旧数据迁移）
+  if(!s.adminUser) s.adminUser='admin';
+  if(!s.adminPass) s.adminPass='admin123';
+  if(!s.viewerPass) s.viewerPass='112233';
+  return s;
+}
+function cacheSave(){ localStorage.setItem(KEY, JSON.stringify(state)); }
+function save(){ cacheSave(); if(!_suppressPush) pushSync(); }
+/* ============ 后端实时同步 ============ */
+function pushSync(){ syncPushWith(SYNC.on ? sessionPass : (state && state.adminPass)); }
+function syncPushWith(pw){
+  if(!SYNC.on || !pw || role!=='admin') return;
+  fetch('/api/data',{method:'POST',headers:{'Content-Type':'application/json','x-admin-password':pw},body:JSON.stringify(state)})
+    .then(r=>r.json()).then(j=>{ if(!j.ok) toast('同步失败：管理员密码不符'); }).catch(()=>{});
+}
+async function initSync(){
+  try{
+    const r = await fetch('/api/data',{cache:'no-store'});
+    if(r.ok){
+      const d = await r.json();
+      if(d && Array.isArray(d.materials) && Array.isArray(d.records)){
+        state = d; SYNC.on = true; cacheSave(); startPolling();
+        toast('已连接云端，数据实时同步');
+        return;
+      }
+    }
+  }catch(e){ /* 无后端，使用本机模式 */ }
+  state = load();
+}
+function startPolling(){
+  if(SYNC.polling) return;
+  SYNC.polling = true;
+  setInterval(async ()=>{
+    try{
+      const r = await fetch('/api/data',{cache:'no-store'});
+      if(!r.ok) return;
+      const d = await r.json();
+      if(!d || !d.records) return;
+      const changed = JSON.stringify(d.records)!==JSON.stringify(state.records)
+        || JSON.stringify(d.materials)!==JSON.stringify(state.materials)
+        || JSON.stringify(d.products)!==JSON.stringify(state.products);
+      state = d; cacheSave();
+      if(changed && (currentTab==='board'||currentTab==='chart')){
+        if(currentTab==='board') renderBoard(); else renderCharts();
+      }
+    }catch(e){}
+  }, 15000);
+}
+function uid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,6); }
+function num(v){ const n=parseFloat(v); return isNaN(n)?0:n; }
+function fmt(n){ return (Math.round(n*100)/100).toLocaleString('zh-CN'); }
+function getRec(date,shift){ return state.records.find(r=>r.date===date&&r.shift===shift); }
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('on'); clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove('on'),1600); }
+
+/* ============ 登录 / 权限 ============ */
+function showLogin(){
+  document.getElementById('loginWrap').style.display='flex';
+}
+function hideLogin(){
+  document.getElementById('loginWrap').style.display='none';
+}
+function doLogin(){
+  const u=document.getElementById('loginUser').value.trim();
+  const pAdmin=document.getElementById('loginPassAdmin').value;
+  const pViewer=document.getElementById('loginPassViewer').value;
+  if(loginMode==='admin'){
+    if(SYNC.on){ verifyLogin('admin', u, pAdmin); }
+    else if(u===state.adminUser && pAdmin===state.adminPass){
+      role='admin'; sessionPass=pAdmin; sessionStorage.setItem('prod_role','admin'); finishLogin('管理员登录成功');
+    } else { toast('账号或密码错误'); }
+  } else {
+    if(SYNC.on){ verifyLogin('viewer', '', pViewer); }
+    else if(pViewer===state.viewerPass){
+      role='viewer'; sessionStorage.setItem('prod_role','viewer'); finishLogin('查看员登录成功');
+    } else { toast('查看密码错误'); }
+  }
+}
+function finishLogin(msg){ hideLogin(); updateAuthBadge(); showTab('board'); toast(msg); }
+async function verifyLogin(kind, user, pass){
+  try{
+    const r=await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({user,pass})});
+    if(r.ok){ const j=await r.json(); role=j.role; if(j.role==='admin') sessionPass=pass; sessionStorage.setItem('prod_role',j.role); finishLogin(j.role==='admin'?'管理员登录成功':'查看员登录成功'); }
+    else { toast(kind==='admin'?'账号或密码错误':'查看密码错误'); }
+  }catch(e){ toast('连接云端失败，请重试'); }
+}
+function toggleLock(){
+  if(role){
+    role=''; sessionStorage.removeItem('prod_role'); updateAuthBadge(); showLogin(); showTab('board');
+  } else {
+    showLogin();
+  }
+}
+function updateAuthBadge(){
+  const b=document.getElementById('lockBtn');
+  const r=document.getElementById('roleBadge');
+  if(role==='admin'){ b.textContent='🔓 管理员'; b.onclick=toggleLock; r.textContent='管理员'; r.style.display='inline-block'; document.body.classList.remove('locked'); }
+  else if(role==='viewer'){ b.textContent='🔓 查看员'; b.onclick=toggleLock; r.textContent='查看员'; r.style.display='inline-block'; document.body.classList.add('locked'); }
+  else { b.textContent='🔒 未登录'; r.style.display='none'; }
+  const sb=document.getElementById('syncBadge');
+  if(sb) sb.style.display = SYNC.on ? 'block' : 'none';
+  if(sb) sb.textContent = SYNC.on ? '☁ 已连接云端 · 实时同步中' : '';
+}
+function bindLoginMode(){
+  document.querySelectorAll('#loginModeSeg button').forEach(b=>{
+    b.onclick=()=>{
+      document.querySelectorAll('#loginModeSeg button').forEach(x=>x.classList.remove('on'));
+      b.classList.add('on'); loginMode=b.dataset.mode;
+      document.getElementById('adminLoginFields').style.display = loginMode==='admin'?'block':'none';
+      document.getElementById('viewerLoginFields').style.display = loginMode==='viewer'?'block':'none';
+    };
+  });
+}
+
+/* ============ 导航 ============ */
+const TABS=[['board','看板','📊'],['input','录入','✏️'],['chart','图表','📈'],['manage','管理','⚙️'],['data','数据','💾']];
+function buildNav(){
+  const nav=document.createElement('nav');
+  TABS.forEach(([id,t,ic])=>{
+    const b=document.createElement('button'); b.dataset.tab=id;
+    const prot=PROTECTED.includes(id);
+    if(prot) b.className='prot';
+    b.innerHTML='<span class="ic">'+ic+'</span>'+t+(prot?' <span style="font-size:9px">🔒</span>':'');
+    b.onclick=()=>showTab(id); nav.appendChild(b);
+  });
+  document.body.appendChild(nav);
+}
+const PROTECTED=['input','manage','data'];
+function showTab(id){
+  currentTab=id;
+  if(PROTECTED.includes(id) && role!=='admin'){
+    if(role==='viewer'){ toast('查看员无权使用此功能，请联系管理员'); }
+    else { showLogin(); }
+    return;
+  }
+  document.querySelectorAll('section').forEach(s=>s.classList.remove('on'));
+  document.getElementById('sec-'+id).classList.add('on');
+  document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.tab===id));
+  if(id==='board') renderBoard();
+  if(id==='input') renderInput();
+  if(id==='chart') renderCharts();
+  if(id==='manage') renderManage();
+  if(id==='data') renderData();
+}
+
+/* ============ 看板 ============ */
+function renderBoard(){
+  const d=todayStr(), s=ui.boardShift;
+  document.getElementById('hdrDate').textContent='今天是 '+d+' ｜ 当前查看：'+(s==='day'?'白班':'夜班');
+  const rec=getRec(d,s);
+  const body=document.getElementById('boardShiftBody');
+  if(!rec){
+    body.innerHTML='<div class="empty">今日'+(s==='day'?'白班':'夜班')+'尚未录入</div>';
+  }else{
+    let h=''; let mcnt=0; let pcnt=0;
+    h+='<div class="muted" style="margin-bottom:6px">录入时间：'+new Date(rec.ts).toLocaleString('zh-CN')+'</div>';
+    state.materials.forEach(m=>{
+      const md=rec.materials[m.id]||{usage:0,add:0};
+      if(num(md.usage)===0 && num(md.add)===0) return;
+      mcnt++;
+      h+='<div class="row"><span class="nm">'+m.name+'<span class="u">'+m.unit+'</span></span>'+
+         '<span>用 '+fmt(md.usage)+' ／ 入 '+fmt(md.add)+'</span></div>';
+    });
+    state.products.forEach(p=>{
+      const v=rec.products&&rec.products[p.id]||0;
+      if(num(v)===0) return;
+      pcnt++;
+      h+='<div class="row"><span class="nm">'+p.name+'<span class="u">'+p.unit+'</span></span><span><b>'+fmt(v)+'</b></span></div>';
+    });
+    if(mcnt===0 && pcnt===0) h+='<div class="empty">本班次录入数据均为 0，已自动隐藏</div>';
+    if(rec.note) h+='<div class="muted" style="margin-top:6px">备注：'+rec.note+'</div>';
+    body.innerHTML=h;
+  }
+  // 成品累计
+  let cum={}; state.products.forEach(p=>cum[p.id]=0);
+  state.records.forEach(r=>state.products.forEach(p=>{ if(r.products&&r.products[p.id]) cum[p.id]+=num(r.products[p.id]); }));
+  let ps='';
+  state.products.forEach(p=>{
+    ps+='<div class="stat"><div class="v">'+fmt(cum[p.id])+'</div><div class="k">'+p.name+' 累计('+p.unit+')</div></div>';
+  });
+  document.getElementById('boardProductStats').innerHTML=ps;
+  // 原料累计用量
+  let matCum={}; state.materials.forEach(m=>matCum[m.id]=0);
+  state.records.forEach(r=>state.materials.forEach(m=>{ const md=r.materials[m.id]; if(md) matCum[m.id]+=num(md.usage); }));
+  let ms='';
+  state.materials.forEach(m=>{
+    ms+='<div class="stat-sm"><div class="v">'+fmt(matCum[m.id])+'</div><div class="k">'+m.name+'('+m.unit+')</div></div>';
+  });
+  document.getElementById('boardMatStats').innerHTML=ms;
+  // 库存预警
+  let warns=[], wc=0;
+  state.materials.forEach(m=>{
+    const inv=state.inventory[m.id];
+    if(state.initSet[m.id] && inv < num(m.threshold)){
+      warns.push(m); wc++;
+    }
+  });
+  document.getElementById('warnCount').textContent=wc;
+  const wEl=document.getElementById('boardWarn');
+  if(!warns.length){ wEl.innerHTML='<div class="empty" style="padding:14px">暂无库存预警 ✅</div>'; }
+  else{
+    wEl.innerHTML=warns.map(m=>{
+      const inv=state.inventory[m.id];
+      return '<div class="warn-card"><div class="t"><span>⚠ '+m.name+'</span><span>'+fmt(inv)+' / '+m.unit+'</span></div>'+
+             '<div class="muted">阈值 '+fmt(num(m.threshold))+' '+m.unit+'，缺口 '+fmt(num(m.threshold)-inv)+' '+m.unit+'</div></div>';
+    }).join('');
+  }
+}
+
+/* ============ 录入 ============ */
+function bindSeg(segId, key, after){
+  document.querySelectorAll('#'+segId+' button').forEach(b=>{
+    b.onclick=()=>{
+      document.querySelectorAll('#'+segId+' button').forEach(x=>x.classList.remove('on'));
+      b.classList.add('on'); ui[key]=b.dataset.s; after&&after();
+    };
+  });
+}
+function renderInput(){
+  const d=document.getElementById('inDate').value||todayStr();
+  const rec=getRec(d,ui.inShift);
+  const mi=document.getElementById('matInputs');
+  mi.innerHTML=state.materials.map(m=>{
+    const md=(rec&&rec.materials[m.id])||{usage:0,add:0,init:''};
+    const initSet=state.initSet[m.id];
+    const cur=initSet?state.inventory[m.id]:null;
+    const preview = initSet ? (cur - num(md.usage) + num(md.add)) : (md.init!==''?(num(md.init)-num(md.usage)+num(md.add)):null);
+    let html='<div class="mat-item"><div class="top"><span class="nm">'+m.name+'</span>'+
+             '<span class="pill '+(initSet?'info':'warn')+'">'+(initSet?('结存 '+fmt(cur)):'未设期初')+'</span></div>';
+    if(!initSet){
+      html+='<div class="fields"><div class="f">期初库存('+m.unit+')</div><div></div>'+
+            '<input type="number" data-k="init" data-id="'+m.id+'" value="'+md.init+'" placeholder="首次填入"></div>';
+    }
+    html+='<div class="fields">'+
+      '<div><div class="f">本班用量('+m.unit+')</div><input type="number" data-k="usage" data-id="'+m.id+'" value="'+md.usage+'"></div>'+
+      '<div><div class="f">本班入库('+m.unit+')</div><input type="number" data-k="add" data-id="'+m.id+'" value="'+md.add+'"></div>'+
+      '</div>';
+    if(preview!==null){
+      const cls = preview<0?'down':'up';
+      html+='<div class="stock-preview '+cls+'">预计结存：'+fmt(preview)+' '+m.unit+'</div>';
+    }
+    html+='</div>';
+    return html;
+  }).join('');
+  const pi=document.getElementById('prodInputs');
+  pi.innerHTML=state.products.map(p=>{
+    const v=(rec&&rec.products&&rec.products[p.id])||0;
+    return '<div class="mat-item"><div class="top"><span class="nm">'+p.name+' <span class="pill '+(p.type==='main'?'tag-main':'tag-sub')+'">'+(p.type==='main'?'主产':'副产')+'</span></span>'+
+           '<span class="muted">'+p.unit+'</span></div>'+
+           '<input type="number" data-p="out" data-id="'+p.id+'" value="'+v+'" placeholder="本班产出"></div>';
+  }).join('');
+  document.getElementById('inNote').value=rec?rec.note:'';
+  document.getElementById('delBtn').style.display=rec?'block':'none';
+}
+function collectInput(){
+  const d=document.getElementById('inDate').value||todayStr();
+  const materials={}, products={};
+  document.querySelectorAll('#matInputs input[data-k]').forEach(inp=>{
+    const id=inp.dataset.id, k=inp.dataset.k;
+    if(!materials[id]) materials[id]={usage:0,add:0,init:''};
+    if(k==='usage') materials[id].usage=num(inp.value);
+    if(k==='add') materials[id].add=num(inp.value);
+    if(k==='init') materials[id].init=inp.value;
+  });
+  document.querySelectorAll('#prodInputs input[data-p="out"]').forEach(inp=>{
+    products[inp.dataset.id]=num(inp.value);
+  });
+  return {d,materials,products,note:document.getElementById('inNote').value.trim()};
+}
+function saveRecord(){
+  const {d,materials,products,note}=collectInput();
+  for(const m of state.materials){
+    if(!state.initSet[m.id]){
+      const md=materials[m.id]||{};
+      if(md.init===''||md.init===undefined||isNaN(parseFloat(md.init))){
+        toast('请先填写「'+m.name+'」期初库存'); return;
+      }
+    }
+  }
+  const oldRec=getRec(d,ui.inShift);
+  if(oldRec){
+    state.materials.forEach(m=>{
+      const old=oldRec.materials[m.id]; if(!old) return;
+      if(state.initSet[m.id]) state.inventory[m.id]=state.inventory[m.id]+num(old.usage)-num(old.add);
+    });
+  }
+  state.materials.forEach(m=>{
+    const md=materials[m.id]||{usage:0,add:0,init:''};
+    if(!state.initSet[m.id]){
+      state.inventory[m.id]=num(md.init)-md.usage+md.add;
+      state.initSet[m.id]=true;
+    }else{
+      state.inventory[m.id]=state.inventory[m.id]-md.usage+md.add;
+    }
+  });
+  const rec=getRec(d,ui.inShift);
+  const payload={date:d,shift:ui.inShift,materials,products,note,ts:Date.now()};
+  if(rec){ Object.assign(rec,payload); } else { payload.id=uid(); state.records.push(payload); }
+  state.records.sort((a,b)=> (a.date+b.shift).localeCompare(b.date+b.shift));
+  save(); toast('已保存 '+d+(ui.inShift==='day'?' 白班':' 夜班'));
+  renderInput();
+}
+function deleteRecord(){
+  const d=document.getElementById('inDate').value||todayStr();
+  const i=state.records.findIndex(r=>r.date===d&&r.shift===ui.inShift);
+  if(i<0){ toast('无记录可删'); return; }
+  const rec=state.records[i];
+  state.materials.forEach(m=>{
+    const md=rec.materials[m.id]; if(!md) return;
+    if(state.initSet[m.id]) state.inventory[m.id]=state.inventory[m.id]+md.usage-md.add;
+  });
+  state.records.splice(i,1); save(); toast('已删除'); renderInput();
+}
+
+/* ============ 管理 ============ */
+function renderManage(){
+  document.getElementById('matCount').textContent=state.materials.length;
+  document.getElementById('prodCount').textContent=state.products.length;
+  const ml=document.getElementById('matList');
+  ml.innerHTML=state.materials.map(m=>{
+    const inv=state.initSet[m.id]?fmt(state.inventory[m.id]):'未设';
+    const warn = state.initSet[m.id]&&state.inventory[m.id]<num(m.threshold);
+    return '<div class="mat-item"><div class="top"><span class="nm">'+m.name+' <span class="u">'+m.unit+'</span></span>'+
+      '<span class="pill '+(warn?'warn':'ok')+'">'+(warn?'预警':'正常')+'</span></div>'+
+      '<div class="row" style="border:none;padding:2px 0"><span class="muted">当前库存</span><span><b>'+inv+'</b> '+m.unit+'</span></div>'+
+      '<div class="row" style="border:none;padding:2px 0"><span class="muted">预警阈值</span><span>'+fmt(num(m.threshold))+' '+m.unit+'</span></div>'+
+      '<div style="margin-top:6px"><button class="btn ghost sm" onclick="editMat(\''+m.id+'\')">编辑</button> '+
+      '<button class="btn red sm" onclick="delMat(\''+m.id+'\')">删除</button></div></div>';
+  }).join('');
+  const pl=document.getElementById('prodList');
+  pl.innerHTML=state.products.map(p=>{
+    return '<div class="mat-item"><div class="top"><span class="nm">'+p.name+' <span class="pill '+(p.type==='main'?'tag-main':'tag-sub')+'">'+(p.type==='main'?'主产':'副产')+'</span></span>'+
+      '<span class="u">'+p.unit+'</span></div>'+
+      '<div style="margin-top:6px"><button class="btn ghost sm" onclick="editProd(\''+p.id+'\')">编辑</button> '+
+      '<button class="btn red sm" onclick="delProd(\''+p.id+'\')">删除</button></div></div>';
+  }).join('');
+}
+function openMatModal(){ document.getElementById('matId').value=''; document.getElementById('matName').value='';
+  document.getElementById('matUnit').value='吨'; document.getElementById('matThr').value=''; document.getElementById('matInit').value=''; closeModal(); document.getElementById('matModal').classList.add('on'); }
+function editMat(id){ const m=state.materials.find(x=>x.id===id); document.getElementById('matId').value=id;
+  document.getElementById('matName').value=m.name; document.getElementById('matUnit').value=m.unit; document.getElementById('matThr').value=m.threshold;
+  document.getElementById('matInit').value=state.initSet[id]?state.inventory[id]:''; document.getElementById('matModal').classList.add('on'); }
+function saveMat(){
+  const id=document.getElementById('matId').value;
+  const name=document.getElementById('matName').value.trim();
+  const unit=document.getElementById('matUnit').value.trim()||'吨';
+  const thr=num(document.getElementById('matThr').value);
+  const init=document.getElementById('matInit').value;
+  if(!name){ toast('请填写名称'); return; }
+  if(id){
+    const m=state.materials.find(x=>x.id===id); m.name=name; m.unit=unit; m.threshold=thr;
+    if(init!==''&&!state.initSet[id]){ state.inventory[id]=num(init); state.initSet[id]=true; }
+  }else{
+    const nid=uid();
+    state.materials.push({id:nid,name,unit,threshold:thr});
+    if(init!==''){ state.inventory[nid]=num(init); state.initSet[nid]=true; }
+  }
+  save(); closeModal('matModal'); renderManage(); toast('已保存');
+}
+function delMat(id){
+  if(!confirm('确定删除该原料？相关历史记录中的该项将保留但不再计入当前库存。')) return;
+  state.materials=state.materials.filter(x=>x.id!==id);
+  delete state.inventory[id]; delete state.initSet[id]; save(); renderManage(); toast('已删除');
+}
+function openProdModal(){ document.getElementById('prodId').value=''; document.getElementById('prodName').value='';
+  document.getElementById('prodUnit').value='吨'; document.getElementById('prodType').value='main'; closeModal(); document.getElementById('prodModal').classList.add('on'); }
+function editProd(id){ const p=state.products.find(x=>x.id===id); document.getElementById('prodId').value=id;
+  document.getElementById('prodName').value=p.name; document.getElementById('prodUnit').value=p.unit; document.getElementById('prodType').value=p.type; document.getElementById('prodModal').classList.add('on'); }
+function saveProd(){
+  const id=document.getElementById('prodId').value;
+  const name=document.getElementById('prodName').value.trim();
+  const unit=document.getElementById('prodUnit').value.trim()||'吨';
+  const type=document.getElementById('prodType').value;
+  if(!name){ toast('请填写名称'); return; }
+  if(id){ const p=state.products.find(x=>x.id===id); p.name=name; p.unit=unit; p.type=type; }
+  else state.products.push({id:uid(),name,unit,type});
+  save(); closeModal('prodModal'); renderManage(); toast('已保存');
+}
+function delProd(id){ if(!confirm('确定删除该成品？')) return; state.products=state.products.filter(x=>x.id!==id); save(); renderManage(); toast('已删除'); }
+function closeModal(id){ if(id) document.getElementById(id).classList.remove('on'); else document.querySelectorAll('.modal-mask').forEach(m=>m.classList.remove('on')); }
+document.querySelectorAll('.modal-mask').forEach(m=>m.addEventListener('click',e=>{ if(e.target===m) m.classList.remove('on'); }));
+
+/* ============ 图表 ============ */
+function niceMax(v){ if(v<=0) return 10; const exp=Math.floor(Math.log10(v)); const base=Math.pow(10,exp); const n=v/base;
+  let nice; if(n<=1)nice=1; else if(n<=2)nice=2; else if(n<=2.5)nice=2.5; else if(n<=5)nice=5; else nice=10; return nice*base; }
+function buildSeries(records, ids, getVal){
+  return ids.map((id,idx)=>({ id, color:COLORS[idx%COLORS.length], data:records.map(r=>({x:r.date+(ui.chartMode==='shift'?(r.shift==='day'?' 白':' 夜'):''), y:getVal(r,id)})) }));
+}
+function lineChart(container, series, legendEl){
+  const W=340,H=220,padL=42,padR=10,padT=14,padB=34;
+  const pw=W-padL-padR, ph=H-padT-padB;
+  let maxY=0,minY=0;
+  series.forEach(s=>s.data.forEach(p=>{ maxY=Math.max(maxY,p.y); minY=Math.min(minY,p.y); }));
+  maxY=niceMax(maxY);
+  const n=series[0]?series[0].data.length:0;
+  const X=i=> n<=1? padL+pw/2 : padL + pw*i/(n-1);
+  const Y=v=> padT + ph - (v-minY)/(maxY-minY||1)*ph;
+  let g='<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="xMidYMid meet">';
+  const steps=4;
+  for(let i=0;i<=steps;i++){ const v=minY+(maxY-minY)*i/steps; const y=Y(v);
+    g+='<line x1="'+padL+'" y1="'+y+'" x2="'+(W-padR)+'" y2="'+y+'" stroke="#e2e8f0" stroke-width="1"/>';
+    g+='<text x="'+(padL-5)+'" y="'+(y+3)+'" font-size="9" fill="#94a3b8" text-anchor="end">'+fmt(v)+'</text>';
+  }
+  if(n>0){
+    const every=Math.ceil(n/6);
+    series[0].data.forEach((p,i)=>{ if(i%every===0||i===n-1){ const x=X(i);
+      g+='<text x="'+x+'" y="'+(H-12)+'" font-size="8" fill="#94a3b8" text-anchor="middle">'+p.x.slice(5)+'</text>'; } });
+  }
+  series.forEach(s=>{
+    if(!s.data.length) return;
+    let d=''; s.data.forEach((p,i)=>{ d+=(i===0?'M':'L')+X(i)+' '+Y(p.y)+' '; });
+    g+='<path d="'+d+'" fill="none" stroke="'+s.color+'" stroke-width="2"/>';
+    s.data.forEach((p,i)=>{ g+='<circle cx="'+X(i)+'" cy="'+Y(p.y)+'" r="2.4" fill="'+s.color+'"/>'; });
+  });
+  g+='</svg>';
+  container.innerHTML=g;
+  if(legendEl){ legendEl.innerHTML=series.map(s=>'<span><i style="background:'+s.color+'"></i>'+sName(s.id)+'</span>').join(''); }
+}
+function sName(id){ const m=state.materials.find(x=>x.id===id); if(m) return m.name; const p=state.products.find(x=>x.id===id); return p?p.name:id; }
+function renderCharts(){
+  const recs=[...state.records].sort((a,b)=>(a.date+a.shift).localeCompare(b.date+b.shift));
+  const recsShown = ui.chartMode==='merge'
+    ? Object.values(recs.reduce((acc,r)=>{ const k=r.date; if(!acc[k]) acc[k]={date:k,shift:r.shift,products:{},materials:{}};
+        state.products.forEach(p=>acc[k].products[p.id]=(acc[k].products[p.id]||0)+num(r.products&&r.products[p.id]));
+        state.materials.forEach(m=>{ const md=r.materials[m.id]; acc[k].materials[m.id]=(acc[k].materials[m.id]||0)+(md?num(md.usage):0); });
+        return acc; },{}))
+    : recs;
+  if(!recsShown.length){ document.getElementById('prodChart').innerHTML='<div class="empty">暂无数据，请先录入</div>';
+    document.getElementById('matChart').innerHTML='<div class="empty">暂无数据</div>';
+    document.getElementById('invChart').innerHTML='<div class="empty">暂无数据</div>'; return; }
+  const prodSeries=buildSeries(recsShown, state.products.map(p=>p.id), (r,id)=>num(r.products&&r.products[id]));
+  lineChart(document.getElementById('prodChart'),prodSeries,document.getElementById('prodLegend'));
+  const matSeries=buildSeries(recsShown, state.materials.map(m=>m.id), (r,id)=>{ const md=r.materials[id]; return md?num(md.usage):0; });
+  lineChart(document.getElementById('matChart'),matSeries,document.getElementById('matLegend'));
+  renderInvBar();
+}
+function renderInvBar(){
+  const ms=state.materials.filter(m=>state.initSet[m.id]);
+  const el=document.getElementById('invChart');
+  if(!ms.length){ el.innerHTML='<div class="empty">暂无库存数据</div>'; return; }
+  let maxV=0; ms.forEach(m=>{ maxV=Math.max(maxV,state.inventory[m.id],num(m.threshold)); });
+  maxV=niceMax(maxV);
+  let h='';
+  ms.forEach(m=>{
+    const inv=state.inventory[m.id], thr=num(m.threshold);
+    const pct=Math.max(2,inv/maxV*100);
+    const tpct=thr/maxV*100;
+    const col = inv<thr?'#dc2626':(inv<thr*1.3?'#f59e0b':'#16a34a');
+    h+='<div class="bar-row"><span style="width:64px;flex:none">'+m.name+'</span>'+
+       '<div class="bar-track"><div class="bar-fill" style="width:'+pct+'%;background:'+col+'"></div>'+
+       '<div class="bar-thr" style="left:'+tpct+'%"></div></div>'+
+       '<span style="width:54px;flex:none;text-align:right">'+fmt(inv)+'</span></div>';
+  });
+  el.innerHTML=h;
+}
+
+/* ============ 导出 / 数据 ============ */
+function download(name,content,mime){ const blob=new Blob([content],{type:mime}); const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob); a.download=name; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),1000); }
+function csvCell(v){ v=v===null||v===undefined?'':String(v); return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v; }
+function exportRecordsCSV(){
+  const head=['日期','班次','备注','录入时间'];
+  state.materials.forEach(m=>{ head.push(m.name+'(用量)'); head.push(m.name+'(入库)'); });
+  state.products.forEach(p=>head.push(p.name+'(产出)'));
+  const rows=[head.join(',')];
+  [...state.records].sort((a,b)=>(a.date+a.shift).localeCompare(b.date+b.shift)).forEach(r=>{
+    const row=[r.date, r.shift==='day'?'白班':'夜班', r.note||'', new Date(r.ts).toLocaleString('zh-CN')];
+    state.materials.forEach(m=>{ const md=r.materials[m.id]||{}; row.push(num(md.usage)); row.push(num(md.add)); });
+    state.products.forEach(p=>row.push(num(r.products&&r.products[p.id])));
+    rows.push(row.map(csvCell).join(','));
+  });
+  download('生产记录_'+todayStr()+'.csv','\ufeff'+rows.join('\n'),'text/csv;charset=utf-8');
+  toast('记录已导出');
+}
+function exportInventoryCSV(){
+  const head=['原料','单位','当前库存','预警阈值','状态'];
+  const rows=[head.join(',')];
+  state.materials.forEach(m=>{ const inv=state.initSet[m.id]?state.inventory[m.id]:0; const warn=state.initSet[m.id]&&inv<num(m.threshold);
+    rows.push([m.name,m.unit,state.initSet[m.id]?inv:'未设',num(m.threshold),warn?'预警':'正常'].map(csvCell).join(',')); });
+  download('库存快照_'+todayStr()+'.csv','\ufeff'+rows.join('\n'),'text/csv;charset=utf-8');
+  toast('库存已导出');
+}
+function exportJSON(){ download('生产看板备份_'+todayStr()+'.json',JSON.stringify(state,null,2),'application/json'); toast('备份已导出'); }
+function publishToWeb(){ download('生产日报看板-发布数据.json',JSON.stringify(state,null,2),'application/json'); toast('已导出发布数据，请把该文件发给我，我帮你更新到网上'); }
+function importJSON(e){ const f=e.target.files[0]; if(!f) return; const rd=new FileReader();
+  rd.onload=()=>{ try{ const s=JSON.parse(rd.result); if(!s.materials||!s.records) throw 0;
+    if(!confirm('导入将覆盖当前数据，确定继续？')) return; 
+    // 保留账号信息
+    s.adminUser=state.adminUser; s.adminPass=state.adminPass; s.viewerPass=state.viewerPass;
+    state=s; save();
+    document.querySelectorAll('section').forEach(x=>x.classList.remove('on')); showTab('board'); toast('导入成功'); }
+    catch(err){ toast('文件格式错误'); } }; rd.readAsText(f); e.target.value=''; }
+function clearAll(){ if(!confirm('将清空全部原料/成品/记录/库存，且不可恢复！建议先导出备份。确定？')) return;
+  if(!confirm('再次确认：永久清空所有数据？')) return; 
+  const keep={adminUser:state.adminUser,adminPass:state.adminPass,viewerPass:state.viewerPass};
+  state=JSON.parse(JSON.stringify(EMBEDDED_DEFAULT)); 
+  Object.assign(state,keep); save(); showTab('board'); toast('已重置为初始数据'); }
+function renderData(){
+  const recs=[...state.records].sort((a,b)=>(b.date+b.shift).localeCompare(a.date+a.shift)).slice(0,30);
+  const el=document.getElementById('histTable');
+  if(!recs.length){ el.innerHTML='<div class="empty">暂无记录</div>'; return; }
+  let h='<table class="mini"><tr><th>日期</th><th>班</th>';
+  state.products.forEach(p=>h+='<th>'+p.name+'</th>');
+  state.materials.forEach(m=>h+='<th>'+m.name+'</th>');
+  h+='<th>备注</th></tr>';
+  recs.forEach(r=>{ h+='<tr><td>'+r.date.slice(5)+'</td><td>'+(r.shift==='day'?'白':'夜')+'</td>';
+    state.products.forEach(p=>h+='<td>'+fmt(num(r.products&&r.products[p.id]))+'</td>');
+    state.materials.forEach(m=>{ const md=r.materials[m.id]||{}; h+='<td>'+fmt(num(md.usage))+'</td>'; });
+    h+='<td>'+(r.note||'')+'</td></tr>'; });
+  h+='</table>'; el.innerHTML=h;
+}
+function setPasscode(){
+  const cur=document.getElementById('curPass').value;
+  const nv=document.getElementById('newPass').value;
+  const curPass = SYNC.on ? sessionPass : state.adminPass;
+  if(curPass && cur!==curPass){ toast('当前密码错误'); return; }
+  if(nv){
+    const old = SYNC.on ? sessionPass : state.adminPass;
+    state.adminPass=nv;
+    if(SYNC.on) sessionPass=nv;
+    _suppressPush=true; cacheSave(); _suppressPush=false;
+    syncPushWith(old);
+    toast('管理员密码已更新');
+  } else { toast('未填写新密码'); }
+  document.getElementById('curPass').value=''; document.getElementById('newPass').value='';
+}
+
+/* ============ 初始化 ============ */
+function init(){
+  buildNav();
+  bindLoginMode();
+  document.getElementById('inDate').value=todayStr();
+  bindSeg('boardShiftSeg','boardShift',renderBoard);
+  bindSeg('inShiftSeg','inShift',renderInput);
+  bindSeg('chartModeSeg','chartMode',renderCharts);
+  document.getElementById('inDate').addEventListener('change',renderInput);
+  // 回车登录
+  ['loginPassAdmin','loginPassViewer','loginUser'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.addEventListener('keydown',e=>{ if(e.key==='Enter') doLogin(); });
+  });
+  if(role){ updateAuthBadge(); showTab('board'); }
+  else { showLogin(); }
+}
+async function boot(){ await initSync(); init(); }
+boot();
+</script>
+</body>
+</html>

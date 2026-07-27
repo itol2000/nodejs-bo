@@ -1,0 +1,4 @@
+# 运行时生成的数据文件（部署后由 seed.json 自动初始化，不要提交）
+data.json
+server.log
+node_modules/

@@ -1,0 +1,12 @@
+# 生产日报看板 - 实时同步后端（独立部署蓝图）
+services:
+  - type: web
+    name: prod-dashboard
+    runtime: node
+    plan: free
+    startCommand: node server.js
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
