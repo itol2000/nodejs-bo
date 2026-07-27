@@ -1,1 +1,2311 @@
-{"materials":[{"id":"m1","name":"电解质","unit":"吨","threshold":8},{"id":"m2","name":"净水剂","unit":"吨","threshold":5},{"id":"m3","name":"盐酸","unit":"吨","threshold":6},{"id":"m4","name":"氢氧化钠","unit":"吨","threshold":5},{"id":"m5","name":"碳酸钠","unit":"吨","threshold":6},{"id":"m6","name":"氢氧化钙","unit":"吨","threshold":5},{"id":"m7","name":"天然气","unit":"m³","threshold":2000}],"products":[{"id":"p1","name":"碳酸锂","unit":"吨","type":"main"},{"id":"p2","name":"黑泥","unit":"吨","type":"sub"},{"id":"p3","name":"黄泥","unit":"吨","type":"sub"},{"id":"p4","name":"盐","unit":"吨","type":"sub"}],"passcode":"123456","inventory":{"m1":141,"m2":191,"m3":17.1,"m4":75,"m5":11.67,"m6":14.5,"m7":0},"initSet":{"m1":true,"m2":true,"m3":true,"m4":true,"m5":true,"m6":true,"m7":true},"records":[{"id":"r1","date":"2026-07-02","shift":"day","materials":{"m1":{"usage":0,"add":33},"m2":{"usage":0,"add":33},"m3":{"usage":0,"add":0},"m4":{"usage":0,"add":0},"m5":{"usage":0,"add":0},"m6":{"usage":0,"add":0},"m7":{"usage":0,"add":0}},"products":{"p1":0,"p2":0,"p3":0,"p4":0},"note":"","ts":1784292087000},{"id":"r2","date":"2026-07-02","shift":"night","materials":{"m1":{"usage":18,"add":33},"m2":{"usage":16.2,"add":33},"m3":{"usage":1.2,"add":0},"m4":{"usage":10,"add":25},"m5":{"usage":0,"add":0},"m6":{"usage":0.5,"add":0},"m7":{"usage":1400,"add":0}},"products":{"p1":0,"p2":0,"p3":0,"p4":1.216},"note":"","ts":1784292057000},{"id":"r3","date":"2026-07-03","shift":"day","materials":{"m1":{"usage":12,"add":0},"m2":{"usage":10.8,"add":0},"m3":{"usage":0.8,"add":0},"m4":{"usage":10,"add":30},"m5":{"usage":0,"add":0},"m6":{"usage":0,"add":0},"m7":{"usage":0,"add":0}},"products":{"p1":0,"p2":19.892,"p3":8.531,"p4":10.47},"note":"","ts":1784292329000},{"id":"r4","date":"2026-07-03","shift":"night","materials":{"m1":{"usage":12,"add":33},"m2":{"usage":10.8,"add":33},"m3":{"usage":0.8,"add":0},"m4":{"usage":5,"add":0},"m5":{"usage":1.3,"add":0},"m6":{"usage":0,"add":0},"m7":{"usage":0,"add":0}},"products":{"p1":0.488,"p2":17.87,"p3":10.158,"p4":8.088},"note":"","ts":1784292556000},{"id":"r5","date":"2026-07-04","shift":"day","materials":{"m1":{"usage":12,"add":0},"m2":{"usage":10.2,"add":0},"m3":{"usage":0.7,"add":0},"m4":{"usage":10,"add":25},"m5":{"usage":1.5,"add":0},"m6":{"usage":0.5,"add":0},"m7":{"usage":1400,"add":23000}},"products":{"p1":1.17,"p2":16.962,"p3":11.366,"p4":2.422},"note":"","ts":1784292967000},{"id":"r6","date":"2026-07-04","shift":"night","materials":{"m1":{"usage":0,"add":0},"m2":{"usage":0,"add":0},"m3":{"usage":0,"add":0},"m4":{"usage":0,"add":0},"m5":{"usage":1.25,"add":0},"m6":{"usage":0,"add":0},"m7":{"usage":0,"add":0}},"products":{"p1":1.147,"p2":0,"p3":0,"p4":0},"note":"","ts":1784293034000},{"id":"r7","date":"2026-07-05","shift":"night","materials":{"m1":{"usage":0,"add":0},"m2":{"usage":0,"add":0},"m3":{"usage":0,"add":0},"m4":{"usage":0,"add":0},"m5":{"usage":0,"add":0},"m6":{"usage":0,"add":0},"m7":{"usage":0,"add":0}},"products":{"p1":0,"p2":0,"p3":0,"p4":0},"note":"plc故障停产两天","ts":1784294187000},{"id":"r8","date":"2026-07-06","shift":"night","materials":{"m1":{"usage":0,"add":0},"m2":{"usage":0,"add":0},"m3":{"usage":0,"add":0},"m4":{"usage":0,"add":0},"m5":{"usage":0,"add":0},"m6":{"usage":0,"add":0},"m7":{"usage":0,"add":0}},"products":{"p1":0,"p2":0,"p3":0,"p4":7.444},"note":"","ts":1784294240000},{"id":"r9","date":"2026-07-07","shift":"day","materials":{"m1":{"usage":18,"add":0},"m2":{"usage":16.2,"add":0},"m3":{"usage":1.2,"add":0},"m4":{"usage":10,"add":0},"m5":{"usage":0,"add":0},"m6":{"usage":0,"add":0},"m7":{"usage":0,"add":0}},"products":{"p1":0.923,"p2":0,"p3":7.777,"p4":10.312},"note":"","ts":1784294397000},{"id":"r10","date":"2026-07-07","shift":"night","materials":{"m1":{"usage":18,"add":33},"m2":{"usage":16.2,"add":0},"m3":{"usage":1.2,"add":0},"m4":{"usage":10,"add":25},"m5":{"usage":0,"add":0},"m6":{"usage":0.5,"add":0},"m7":{"usage":1400,"add":0}},"products":{"p1":0.889,"p2":24.624,"p3":7.023,"p4":3.77},"note":"","ts":1784294648000},{"id":"r11","date":"2026-07-08","shift":"day","materials":{"m1":{"usage":18,"add":66},"m2":{"usage":16.2,"add":33},"m3":{"usage":1.2,"add":0},"m4":{"usage":10,"add":0},"m5":{"usage":0.39,"add":0},"m6":{"usage":0.5,"add":0},"m7":{"usage":1400,"add":0}},"products":{"p1":0.771,"p2":20.751,"p3":9.812,"p4":7.368},"note":"","ts":1784297273000},{"id":"r12","date":"2026-07-08","shift":"night","materials":{"m1":{"usage":12,"add":33},"m2":{"usage":16.2,"add":0},"m3":{"usage":1.2,"add":0},"m4":{"usage":0,"add":0},"m5":{"usage":1.8,"add":0},"m6":{"usage":0,"add":0},"m7":{"usage":1400,"add":0}},"products":{"p1":1.028,"p2":19.842,"p3":6.746,"p4":7.57},"note":"","ts":1784295647000},{"id":"r13","date":"2026-07-09","shift":"day","materials":{"m1":{"usage":18,"add":0},"m2":{"usage":16.2,"add":0},"m3":{"usage":1.2,"add":0},"m4":{"usage":10,"add":0},"m5":{"usage":0.89,"add":0},"m6":{"usage":0.5,"add":0},"m7":{"usage":1400,"add":0}},"products":{"p1":0.987,"p2":24.489,"p3":11.894,"p4":12.063},"note":"","ts":1784295935000},{"id":"r14","date":"2026-07-09","shift":"night","materials":{"m1":{"usage":18,"add":0},"m2":{"usage":16.2,"add":66},"m3":{"usage":1.5,"add":0},"m4":{"usage":10,"add":0},"m5":{"usage":0.9,"add":0},"m6":{"usage":0.5,"add":0},"m7":{"usage":1500,"add":0}},"products":{"p1":0.917,"p2":31.283,"p3":5.654,"p4":6.413},"note":"","ts":1784296062000},{"id":"r15","date":"2026-07-10","shift":"day","materials":{"m1":{"usage":18,"add":0},"m2":{"usage":16.2,"add":0},"m3":{"usage":1.5,"add":0},"m4":{"usage":10,"add":0},"m5":{"usage":2.5,"add":0},"m6":{"usage":0.5,"add":0},"m7":{"usage":1400,"add":0}},"products":{"p1":1.005,"p2":22.462,"p3":9.212,"p4":7.095},"note":"","ts":1784297505000},{"id":"r16","date":"2026-07-10","shift":"night","materials":{"m1":{"usage":24,"add":66},"m2":{"usage":21.6,"add":0},"m3":{"usage":2,"add":0},"m4":{"usage":20,"add":50},"m5":{"usage":1.5,"add":33},"m6":{"usage":1,"add":0},"m7":{"usage":1400,"add":0}},"products":{"p1":1.477,"p2":27.225,"p3":12.621,"p4":5.099},"note":"","ts":1784297693000},{"id":"r17","date":"2026-07-11","shift":"day","materials":{"m1":{"usage":18,"add":0},"m2":{"usage":16.2,"add":200},"m3":{"usage":1.5,"add":0},"m4":{"usage":10,"add":50},"m5":{"usage":2.5,"add":0},"m6":{"usage":0.5,"add":0},"m7":{"usage":1400,"add":0}},"products":{"p1":1.503,"p2":27.445,"p3":10.544,"p4":0},"note":"","ts":1784298911000},{"id":"r18","date":"2026-07-11","shift":"night","materials":{"m1":{"usage":18,"add":0},"m2":{"usage":16.2,"add":33},"m3":{"usage":1.5,"add":0},"m4":{"usage":10,"add":0},"m5":{"usage":2.5,"add":0},"m6":{"usage":0.5,"add":0},"m7":{"usage":1400,"add":0}},"products":{"p1":0.589,"p2":25.165,"p3":12.292,"p4":2.341},"note":"","ts":1784302369000},{"id":"r19","date":"2026-07-12","shift":"day","materials":{"m1":{"usage":18,"add":0},"m2":{"usage":16.2,"add":0},"m3":{"usage":1.5,"add":33},"m4":{"usage":0,"add":0},"m5":{"usage":0.9,"add":0},"m6":{"usage":0,"add":0},"m7":{"usage":1400,"add":0}},"products":{"p1":0.3,"p2":25.56,"p3":11.888,"p4":9.081},"note":"","ts":1784301321000},{"id":"r20","date":"2026-07-12","shift":"night","materials":{"m1":{"usage":18,"add":66},"m2":{"usage":16.2,"add":0},"m3":{"usage":1.5,"add":0},"m4":{"usage":10,"add":0},"m5":{"usage":2.5,"add":0},"m6":{"usage":0.5,"add":0},"m7":{"usage":1400,"add":0}},"products":{"p1":1.578,"p2":20.589,"p3":15.118,"p4":8.946},"note":"","ts":1784301546000},{"id":"r21","date":"2026-07-13","shift":"day","materials":{"m1":{"usage":12,"add":0},"m2":{"usage":10.8,"add":0},"m3":{"usage":1,"add":0},"m4":{"usage":10,"add":0},"m5":{"usage":2.2,"add":0},"m6":{"usage":0.5,"add":0},"m7":{"usage":1400,"add":0}},"products":{"p1":1.567,"p2":25.659,"p3":13.425,"p4":2.553},"note":"","ts":1784301682000},{"id":"r22","date":"2026-07-13","shift":"night","materials":{"m1":{"usage":24,"add":60},"m2":{"usage":21.6,"add":66},"m3":{"usage":2,"add":0},"m4":{"usage":0,"add":0},"m5":{"usage":0.53,"add":0},"m6":{"usage":0,"add":0},"m7":{"usage":1400,"add":0}},"products":{"p1":0.632,"p2":21.582,"p3":10.232,"p4":0},"note":"","ts":1784301881000},{"id":"r23","date":"2026-07-14","shift":"night","materials":{"m1":{"usage":18,"add":0},"m2":{"usage":16.2,"add":0},"m3":{"usage":1.5,"add":0},"m4":{"usage":10,"add":50},"m5":{"usage":2.2,"add":0},"m6":{"usage":0.5,"add":0},"m7":{"usage":1400,"add":0}},"products":{"p1":1.295,"p2":30.55,"p3":15.716,"p4":6.207},"note":"","ts":1784302264000},{"id":"r24","date":"2026-07-15","shift":"night","materials":{"m1":{"usage":30,"add":33},"m2":{"usage":27,"add":33},"m3":{"usage":3,"add":0},"m4":{"usage":10,"add":0},"m5":{"usage":2.5,"add":0},"m6":{"usage":1,"add":0},"m7":{"usage":1600,"add":0}},"products":{"p1":2.45,"p2":41.634,"p3":21.436,"p4":13.406},"note":"","ts":1784219425000},{"id":"r25","date":"2026-07-16","shift":"day","materials":{"m1":{"usage":18,"add":33},"m2":{"usage":16.2,"add":0},"m3":{"usage":1.8,"add":0},"m4":{"usage":10,"add":25},"m5":{"usage":1.5,"add":0},"m6":{"usage":0.5,"add":0},"m7":{"usage":1500,"add":0}},"products":{"p1":1.062,"p2":16.616,"p3":14.222,"p4":9.849},"note":"","ts":1784219703000},{"id":"r26","date":"2026-07-16","shift":"night","materials":{"m1":{"usage":18,"add":0},"m2":{"usage":16.2,"add":0},"m3":{"usage":1.8,"add":0},"m4":{"usage":10,"add":0},"m5":{"usage":1.5,"add":0},"m6":{"usage":0.5,"add":0},"m7":{"usage":1500,"add":0}},"products":{"p1":1.025,"p2":25.064,"p3":13.624,"p4":8.623},"note":"","ts":1784287694000},{"id":"r27","date":"2026-07-17","shift":"day","materials":{"m1":{"usage":18,"add":60},"m2":{"usage":16.2,"add":33},"m3":{"usage":1.8,"add":0},"m4":{"usage":10,"add":0},"m5":{"usage":1,"add":0},"m6":{"usage":0.5,"add":15},"m7":{"usage":1400,"add":0}},"products":{"p1":1.043,"p2":30.443,"p3":12.823,"p4":0},"note":"","ts":1784303033000}]}
+{
+  "materials": [
+    {
+      "id": "m1",
+      "name": "电解质",
+      "unit": "吨",
+      "threshold": 8
+    },
+    {
+      "id": "m2",
+      "name": "净水剂",
+      "unit": "吨",
+      "threshold": 5
+    },
+    {
+      "id": "m3",
+      "name": "盐酸",
+      "unit": "吨",
+      "threshold": 6
+    },
+    {
+      "id": "m4",
+      "name": "氢氧化钠",
+      "unit": "吨",
+      "threshold": 5
+    },
+    {
+      "id": "m5",
+      "name": "碳酸钠",
+      "unit": "吨",
+      "threshold": 6
+    },
+    {
+      "id": "m6",
+      "name": "氢氧化钙",
+      "unit": "吨",
+      "threshold": 5
+    },
+    {
+      "id": "m7",
+      "name": "天然气",
+      "unit": "m³",
+      "threshold": 2000
+    },
+    {
+      "id": "m8",
+      "name": "高锂黄泥",
+      "unit": "吨",
+      "threshold": 0
+    },
+    {
+      "id": "m9",
+      "name": "电石渣",
+      "unit": "吨",
+      "threshold": 0
+    },
+    {
+      "id": "m10",
+      "name": "硫酸钠",
+      "unit": "吨",
+      "threshold": 0
+    }
+  ],
+  "products": [
+    {
+      "id": "p1",
+      "name": "碳酸锂",
+      "unit": "吨",
+      "type": "main"
+    },
+    {
+      "id": "p2",
+      "name": "黑泥",
+      "unit": "吨",
+      "type": "sub"
+    },
+    {
+      "id": "p3",
+      "name": "黄泥",
+      "unit": "吨",
+      "type": "sub"
+    },
+    {
+      "id": "p4",
+      "name": "盐",
+      "unit": "吨",
+      "type": "sub"
+    }
+  ],
+  "records": [
+    {
+      "id": "r1",
+      "date": "2026-07-02",
+      "shift": "day",
+      "materials": {
+        "m1": {
+          "usage": 0,
+          "add": 33
+        },
+        "m2": {
+          "usage": 0,
+          "add": 33
+        },
+        "m3": {
+          "usage": 0,
+          "add": 0
+        },
+        "m4": {
+          "usage": 0,
+          "add": 0
+        },
+        "m5": {
+          "usage": 0,
+          "add": 0
+        },
+        "m6": {
+          "usage": 0,
+          "add": 0
+        },
+        "m7": {
+          "usage": 0,
+          "add": 0
+        },
+        "m8": {
+          "usage": 0,
+          "add": 0
+        },
+        "m9": {
+          "usage": 0,
+          "add": 0
+        },
+        "m10": {
+          "usage": 0,
+          "add": 0
+        }
+      },
+      "products": {
+        "p1": 0,
+        "p2": 0,
+        "p3": 0,
+        "p4": 0
+      },
+      "note": "",
+      "ts": 1782950400000
+    },
+    {
+      "id": "r2",
+      "date": "2026-07-02",
+      "shift": "night",
+      "materials": {
+        "m1": {
+          "usage": 18,
+          "add": 33
+        },
+        "m2": {
+          "usage": 16.2,
+          "add": 33
+        },
+        "m3": {
+          "usage": 1.2,
+          "add": 0
+        },
+        "m4": {
+          "usage": 10,
+          "add": 25
+        },
+        "m5": {
+          "usage": 0,
+          "add": 0
+        },
+        "m6": {
+          "usage": 0.5,
+          "add": 0
+        },
+        "m7": {
+          "usage": 1400,
+          "add": 0
+        },
+        "m8": {
+          "usage": 0,
+          "add": 0
+        },
+        "m9": {
+          "usage": 0,
+          "add": 0
+        },
+        "m10": {
+          "usage": 0,
+          "add": 0
+        }
+      },
+      "products": {
+        "p1": 0,
+        "p2": 0,
+        "p3": 0,
+        "p4": 1.216
+      },
+      "note": "",
+      "ts": 1782993600000
+    },
+    {
+      "id": "r3",
+      "date": "2026-07-03",
+      "shift": "day",
+      "materials": {
+        "m1": {
+          "usage": 12,
+          "add": 0
+        },
+        "m2": {
+          "usage": 10.8,
+          "add": 0
+        },
+        "m3": {
+          "usage": 0.8,
+          "add": 0
+        },
+        "m4": {
+          "usage": 10,
+          "add": 30
+        },
+        "m5": {
+          "usage": 0,
+          "add": 0
+        },
+        "m6": {
+          "usage": 0,
+          "add": 0
+        },
+        "m7": {
+          "usage": 0,
+          "add": 0
+        },
+        "m8": {
+          "usage": 0,
+          "add": 0
+        },
+        "m9": {
+          "usage": 0,
+          "add": 0
+        },
+        "m10": {
+          "usage": 0,
+          "add": 0
+        }
+      },
+      "products": {
+        "p1": 0,
+        "p2": 19.892,
+        "p3": 8.531,
+        "p4": 10.47
+      },
+      "note": "",
+      "ts": 1783036800000
+    },
+    {
+      "id": "r4",
+      "date": "2026-07-03",
+      "shift": "night",
+      "materials": {
+        "m1": {
+          "usage": 12,
+          "add": 33
+        },
+        "m2": {
+          "usage": 10.8,
+          "add": 33
+        },
+        "m3": {
+          "usage": 0.8,
+          "add": 0
+        },
+        "m4": {
+          "usage": 5,
+          "add": 0
+        },
+        "m5": {
+          "usage": 1.3,
+          "add": 0
+        },
+        "m6": {
+          "usage": 0,
+          "add": 0
+        },
+        "m7": {
+          "usage": 0,
+          "add": 0
+        },
+        "m8": {
+          "usage": 0,
+          "add": 0
+        },
+        "m9": {
+          "usage": 0,
+          "add": 0
+        },
+        "m10": {
+          "usage": 0,
+          "add": 0
+        }
+      },
+      "products": {
+        "p1": 0.488,
+        "p2": 17.87,
+        "p3": 10.158,
+        "p4": 8.088
+      },
+      "note": "",
+      "ts": 1783080000000
+    },
+    {
+      "id": "r5",
+      "date": "2026-07-04",
+      "shift": "day",
+      "materials": {
+        "m1": {
+          "usage": 12,
+          "add": 0
+        },
+        "m2": {
+          "usage": 10.2,
+          "add": 0
+        },
+        "m3": {
+          "usage": 0.7,
+          "add": 0
+        },
+        "m4": {
+          "usage": 10,
+          "add": 25
+        },
+        "m5": {
+          "usage": 1.5,
+          "add": 0
+        },
+        "m6": {
+          "usage": 0.5,
+          "add": 0
+        },
+        "m7": {
+          "usage": 1400,
+          "add": 23000
+        },
+        "m8": {
+          "usage": 0,
+          "add": 0
+        },
+        "m9": {
+          "usage": 0,
+          "add": 0
+        },
+        "m10": {
+          "usage": 0,
+          "add": 0
+        }
+      },
+      "products": {
+        "p1": 1.17,
+        "p2": 16.962,
+        "p3": 11.366,
+        "p4": 2.422
+      },
+      "note": "",
+      "ts": 1783123200000
+    },
+    {
+      "id": "r6",
+      "date": "2026-07-04",
+      "shift": "night",
+      "materials": {
+        "m1": {
+          "usage": 0,
+          "add": 0
+        },
+        "m2": {
+          "usage": 0,
+          "add": 0
+        },
+        "m3": {
+          "usage": 0,
+          "add": 0
+        },
+        "m4": {
+          "usage": 0,
+          "add": 0
+        },
+        "m5": {
+          "usage": 1.25,
+          "add": 0
+        },
+        "m6": {
+          "usage": 0,
+          "add": 0
+        },
+        "m7": {
+          "usage": 0,
+          "add": 0
+        },
+        "m8": {
+          "usage": 0,
+          "add": 0
+        },
+        "m9": {
+          "usage": 0,
+          "add": 0
+        },
+        "m10": {
+          "usage": 0,
+          "add": 0
+        }
+      },
+      "products": {
+        "p1": 1.147,
+        "p2": 0,
+        "p3": 0,
+        "p4": 0
+      },
+      "note": "",
+      "ts": 1783166400000
+    },
+    {
+      "id": "r7",
+      "date": "2026-07-05",
+      "shift": "night",
+      "materials": {
+        "m1": {
+          "usage": 0,
+          "add": 0
+        },
+        "m2": {
+          "usage": 0,
+          "add": 0
+        },
+        "m3": {
+          "usage": 0,
+          "add": 0
+        },
+        "m4": {
+          "usage": 0,
+          "add": 0
+        },
+        "m5": {
+          "usage": 0,
+          "add": 0
+        },
+        "m6": {
+          "usage": 0,
+          "add": 0
+        },
+        "m7": {
+          "usage": 0,
+          "add": 0
+        },
+        "m8": {
+          "usage": 0,
+          "add": 0
+        },
+        "m9": {
+          "usage": 0,
+          "add": 0
+        },
+        "m10": {
+          "usage": 0,
+          "add": 0
+        }
+      },
+      "products": {
+        "p1": 0,
+        "p2": 0,
+        "p3": 0,
+        "p4": 0
+      },
+      "note": "plc故障停产两天",
+      "ts": 1783252800000
+    },
+    {
+      "id": "r8",
+      "date": "2026-07-06",
+      "shift": "night",
+      "materials": {
+        "m1": {
+          "usage": 0,
+          "add": 0
+        },
+        "m2": {
+          "usage": 0,
+          "add": 0
+        },
+        "m3": {
+          "usage": 0,
+          "add": 0
+        },
+        "m4": {
+          "usage": 0,
+          "add": 0
+        },
+        "m5": {
+          "usage": 0,
+          "add": 0
+        },
+        "m6": {
+          "usage": 0,
+          "add": 0
+        },
+        "m7": {
+          "usage": 0,
+          "add": 0
+        },
+        "m8": {
+          "usage": 0,
+          "add": 0
+        },
+        "m9": {
+          "usage": 0,
+          "add": 0
+        },
+        "m10": {
+          "usage": 0,
+          "add": 0
+        }
+      },
+      "products": {
+        "p1": 0,
+        "p2": 0,
+        "p3": 0,
+        "p4": 7.444
+      },
+      "note": "",
+      "ts": 1783339200000
+    },
+    {
+      "id": "r9",
+      "date": "2026-07-07",
+      "shift": "day",
+      "materials": {
+        "m1": {
+          "usage": 18,
+          "add": 0
+        },
+        "m2": {
+          "usage": 16.2,
+          "add": 0
+        },
+        "m3": {
+          "usage": 1.2,
+          "add": 0
+        },
+        "m4": {
+          "usage": 10,
+          "add": 0
+        },
+        "m5": {
+          "usage": 0,
+          "add": 0
+        },
+        "m6": {
+          "usage": 0,
+          "add": 0
+        },
+        "m7": {
+          "usage": 0,
+          "add": 0
+        },
+        "m8": {
+          "usage": 0,
+          "add": 0
+        },
+        "m9": {
+          "usage": 0,
+          "add": 0
+        },
+        "m10": {
+          "usage": 0,
+          "add": 0
+        }
+      },
+      "products": {
+        "p1": 0.923,
+        "p2": 0,
+        "p3": 7.777,
+        "p4": 10.312
+      },
+      "note": "",
+      "ts": 1783382400000
+    },
+    {
+      "id": "r10",
+      "date": "2026-07-07",
+      "shift": "night",
+      "materials": {
+        "m1": {
+          "usage": 18,
+          "add": 33
+        },
+        "m2": {
+          "usage": 16.2,
+          "add": 0
+        },
+        "m3": {
+          "usage": 1.2,
+          "add": 0
+        },
+        "m4": {
+          "usage": 10,
+          "add": 25
+        },
+        "m5": {
+          "usage": 0,
+          "add": 0
+        },
+        "m6": {
+          "usage": 0.5,
+          "add": 0
+        },
+        "m7": {
+          "usage": 1400,
+          "add": 0
+        },
+        "m8": {
+          "usage": 0,
+          "add": 0
+        },
+        "m9": {
+          "usage": 0,
+          "add": 0
+        },
+        "m10": {
+          "usage": 0,
+          "add": 0
+        }
+      },
+      "products": {
+        "p1": 0.889,
+        "p2": 24.624,
+        "p3": 7.023,
+        "p4": 3.77
+      },
+      "note": "",
+      "ts": 1783425600000
+    },
+    {
+      "id": "r11",
+      "date": "2026-07-08",
+      "shift": "day",
+      "materials": {
+        "m1": {
+          "usage": 18,
+          "add": 66
+        },
+        "m2": {
+          "usage": 16.2,
+          "add": 33
+        },
+        "m3": {
+          "usage": 1.2,
+          "add": 0
+        },
+        "m4": {
+          "usage": 10,
+          "add": 0
+        },
+        "m5": {
+          "usage": 0.39,
+          "add": 0
+        },
+        "m6": {
+          "usage": 0.5,
+          "add": 0
+        },
+        "m7": {
+          "usage": 1400,
+          "add": 0
+        },
+        "m8": {
+          "usage": 0,
+          "add": 0
+        },
+        "m9": {
+          "usage": 0,
+          "add": 0
+        },
+        "m10": {
+          "usage": 0,
+          "add": 0
+        }
+      },
+      "products": {
+        "p1": 0.771,
+        "p2": 20.751,
+        "p3": 9.812,
+        "p4": 7.368
+      },
+      "note": "",
+      "ts": 1783468800000
+    },
+    {
+      "id": "r12",
+      "date": "2026-07-08",
+      "shift": "night",
+      "materials": {
+        "m1": {
+          "usage": 12,
+          "add": 33
+        },
+        "m2": {
+          "usage": 16.2,
+          "add": 0
+        },
+        "m3": {
+          "usage": 1.2,
+          "add": 0
+        },
+        "m4": {
+          "usage": 0,
+          "add": 0
+        },
+        "m5": {
+          "usage": 1.8,
+          "add": 0
+        },
+        "m6": {
+          "usage": 0,
+          "add": 0
+        },
+        "m7": {
+          "usage": 1400,
+          "add": 0
+        },
+        "m8": {
+          "usage": 0,
+          "add": 0
+        },
+        "m9": {
+          "usage": 0,
+          "add": 0
+        },
+        "m10": {
+          "usage": 0,
+          "add": 0
+        }
+      },
+      "products": {
+        "p1": 1.028,
+        "p2": 19.842,
+        "p3": 6.746,
+        "p4": 7.57
+      },
+      "note": "",
+      "ts": 1783512000000
+    },
+    {
+      "id": "r13",
+      "date": "2026-07-09",
+      "shift": "day",
+      "materials": {
+        "m1": {
+          "usage": 18,
+          "add": 0
+        },
+        "m2": {
+          "usage": 16.2,
+          "add": 0
+        },
+        "m3": {
+          "usage": 1.2,
+          "add": 0
+        },
+        "m4": {
+          "usage": 10,
+          "add": 0
+        },
+        "m5": {
+          "usage": 0.89,
+          "add": 0
+        },
+        "m6": {
+          "usage": 0.5,
+          "add": 0
+        },
+        "m7": {
+          "usage": 1400,
+          "add": 0
+        },
+        "m8": {
+          "usage": 0,
+          "add": 0
+        },
+        "m9": {
+          "usage": 0,
+          "add": 0
+        },
+        "m10": {
+          "usage": 0,
+          "add": 0
+        }
+      },
+      "products": {
+        "p1": 0.987,
+        "p2": 24.489,
+        "p3": 11.894,
+        "p4": 12.063
+      },
+      "note": "",
+      "ts": 1783555200000
+    },
+    {
+      "id": "r14",
+      "date": "2026-07-09",
+      "shift": "night",
+      "materials": {
+        "m1": {
+          "usage": 18,
+          "add": 0
+        },
+        "m2": {
+          "usage": 16.2,
+          "add": 66
+        },
+        "m3": {
+          "usage": 1.5,
+          "add": 0
+        },
+        "m4": {
+          "usage": 10,
+          "add": 0
+        },
+        "m5": {
+          "usage": 0.9,
+          "add": 0
+        },
+        "m6": {
+          "usage": 0.5,
+          "add": 0
+        },
+        "m7": {
+          "usage": 1500,
+          "add": 0
+        },
+        "m8": {
+          "usage": 0,
+          "add": 0
+        },
+        "m9": {
+          "usage": 0,
+          "add": 0
+        },
+        "m10": {
+          "usage": 0,
+          "add": 0
+        }
+      },
+      "products": {
+        "p1": 0.917,
+        "p2": 31.283,
+        "p3": 5.654,
+        "p4": 6.413
+      },
+      "note": "",
+      "ts": 1783598400000
+    },
+    {
+      "id": "r15",
+      "date": "2026-07-10",
+      "shift": "day",
+      "materials": {
+        "m1": {
+          "usage": 18,
+          "add": 0
+        },
+        "m2": {
+          "usage": 16.2,
+          "add": 0
+        },
+        "m3": {
+          "usage": 1.5,
+          "add": 0
+        },
+        "m4": {
+          "usage": 10,
+          "add": 0
+        },
+        "m5": {
+          "usage": 2.5,
+          "add": 0
+        },
+        "m6": {
+          "usage": 0.5,
+          "add": 0
+        },
+        "m7": {
+          "usage": 1400,
+          "add": 0
+        },
+        "m8": {
+          "usage": 0,
+          "add": 0
+        },
+        "m9": {
+          "usage": 0,
+          "add": 0
+        },
+        "m10": {
+          "usage": 0,
+          "add": 0
+        }
+      },
+      "products": {
+        "p1": 1.005,
+        "p2": 22.462,
+        "p3": 9.212,
+        "p4": 7.095
+      },
+      "note": "",
+      "ts": 1783641600000
+    },
+    {
+      "id": "r16",
+      "date": "2026-07-10",
+      "shift": "night",
+      "materials": {
+        "m1": {
+          "usage": 24,
+          "add": 66
+        },
+        "m2": {
+          "usage": 21.6,
+          "add": 0
+        },
+        "m3": {
+          "usage": 2,
+          "add": 0
+        },
+        "m4": {
+          "usage": 20,
+          "add": 50
+        },
+        "m5": {
+          "usage": 1.5,
+          "add": 33
+        },
+        "m6": {
+          "usage": 1,
+          "add": 0
+        },
+        "m7": {
+          "usage": 1400,
+          "add": 0
+        },
+        "m8": {
+          "usage": 0,
+          "add": 0
+        },
+        "m9": {
+          "usage": 0,
+          "add": 0
+        },
+        "m10": {
+          "usage": 0,
+          "add": 0
+        }
+      },
+      "products": {
+        "p1": 1.477,
+        "p2": 27.225,
+        "p3": 12.621,
+        "p4": 5.099
+      },
+      "note": "",
+      "ts": 1783684800000
+    },
+    {
+      "id": "r17",
+      "date": "2026-07-11",
+      "shift": "day",
+      "materials": {
+        "m1": {
+          "usage": 18,
+          "add": 0
+        },
+        "m2": {
+          "usage": 16.2,
+          "add": 200
+        },
+        "m3": {
+          "usage": 1.5,
+          "add": 0
+        },
+        "m4": {
+          "usage": 10,
+          "add": 50
+        },
+        "m5": {
+          "usage": 2.5,
+          "add": 0
+        },
+        "m6": {
+          "usage": 0.5,
+          "add": 0
+        },
+        "m7": {
+          "usage": 1400,
+          "add": 0
+        },
+        "m8": {
+          "usage": 0,
+          "add": 0
+        },
+        "m9": {
+          "usage": 0,
+          "add": 0
+        },
+        "m10": {
+          "usage": 0,
+          "add": 0
+        }
+      },
+      "products": {
+        "p1": 1.503,
+        "p2": 27.445,
+        "p3": 10.544,
+        "p4": 0
+      },
+      "note": "",
+      "ts": 1783728000000
+    },
+    {
+      "id": "r18",
+      "date": "2026-07-11",
+      "shift": "night",
+      "materials": {
+        "m1": {
+          "usage": 18,
+          "add": 0
+        },
+        "m2": {
+          "usage": 16.2,
+          "add": 33
+        },
+        "m3": {
+          "usage": 1.5,
+          "add": 0
+        },
+        "m4": {
+          "usage": 10,
+          "add": 0
+        },
+        "m5": {
+          "usage": 2.5,
+          "add": 0
+        },
+        "m6": {
+          "usage": 0.5,
+          "add": 0
+        },
+        "m7": {
+          "usage": 1400,
+          "add": 0
+        },
+        "m8": {
+          "usage": 0,
+          "add": 0
+        },
+        "m9": {
+          "usage": 0,
+          "add": 0
+        },
+        "m10": {
+          "usage": 0,
+          "add": 0
+        }
+      },
+      "products": {
+        "p1": 0.589,
+        "p2": 25.165,
+        "p3": 12.292,
+        "p4": 2.341
+      },
+      "note": "",
+      "ts": 1783771200000
+    },
+    {
+      "id": "r19",
+      "date": "2026-07-12",
+      "shift": "day",
+      "materials": {
+        "m1": {
+          "usage": 18,
+          "add": 0
+        },
+        "m2": {
+          "usage": 16.2,
+          "add": 0
+        },
+        "m3": {
+          "usage": 1.5,
+          "add": 33
+        },
+        "m4": {
+          "usage": 0,
+          "add": 0
+        },
+        "m5": {
+          "usage": 0.9,
+          "add": 0
+        },
+        "m6": {
+          "usage": 0,
+          "add": 0
+        },
+        "m7": {
+          "usage": 1400,
+          "add": 0
+        },
+        "m8": {
+          "usage": 0,
+          "add": 0
+        },
+        "m9": {
+          "usage": 0,
+          "add": 0
+        },
+        "m10": {
+          "usage": 0,
+          "add": 0
+        }
+      },
+      "products": {
+        "p1": 0.3,
+        "p2": 25.56,
+        "p3": 11.888,
+        "p4": 9.081
+      },
+      "note": "",
+      "ts": 1783814400000
+    },
+    {
+      "id": "r20",
+      "date": "2026-07-12",
+      "shift": "night",
+      "materials": {
+        "m1": {
+          "usage": 18,
+          "add": 66
+        },
+        "m2": {
+          "usage": 16.2,
+          "add": 0
+        },
+        "m3": {
+          "usage": 1.5,
+          "add": 0
+        },
+        "m4": {
+          "usage": 10,
+          "add": 0
+        },
+        "m5": {
+          "usage": 2.5,
+          "add": 0
+        },
+        "m6": {
+          "usage": 0.5,
+          "add": 0
+        },
+        "m7": {
+          "usage": 1400,
+          "add": 0
+        },
+        "m8": {
+          "usage": 0,
+          "add": 0
+        },
+        "m9": {
+          "usage": 0,
+          "add": 0
+        },
+        "m10": {
+          "usage": 0,
+          "add": 0
+        }
+      },
+      "products": {
+        "p1": 1.578,
+        "p2": 20.589,
+        "p3": 15.118,
+        "p4": 8.946
+      },
+      "note": "",
+      "ts": 1783857600000
+    },
+    {
+      "id": "r21",
+      "date": "2026-07-13",
+      "shift": "day",
+      "materials": {
+        "m1": {
+          "usage": 12,
+          "add": 0
+        },
+        "m2": {
+          "usage": 10.8,
+          "add": 0
+        },
+        "m3": {
+          "usage": 1,
+          "add": 0
+        },
+        "m4": {
+          "usage": 10,
+          "add": 0
+        },
+        "m5": {
+          "usage": 2.2,
+          "add": 0
+        },
+        "m6": {
+          "usage": 0.5,
+          "add": 0
+        },
+        "m7": {
+          "usage": 1400,
+          "add": 0
+        },
+        "m8": {
+          "usage": 0,
+          "add": 0
+        },
+        "m9": {
+          "usage": 0,
+          "add": 0
+        },
+        "m10": {
+          "usage": 0,
+          "add": 0
+        }
+      },
+      "products": {
+        "p1": 1.567,
+        "p2": 25.659,
+        "p3": 13.425,
+        "p4": 2.553
+      },
+      "note": "",
+      "ts": 1783900800000
+    },
+    {
+      "id": "r22",
+      "date": "2026-07-13",
+      "shift": "night",
+      "materials": {
+        "m1": {
+          "usage": 24,
+          "add": 60
+        },
+        "m2": {
+          "usage": 21.6,
+          "add": 66
+        },
+        "m3": {
+          "usage": 2,
+          "add": 0
+        },
+        "m4": {
+          "usage": 0,
+          "add": 0
+        },
+        "m5": {
+          "usage": 0.53,
+          "add": 0
+        },
+        "m6": {
+          "usage": 0,
+          "add": 0
+        },
+        "m7": {
+          "usage": 1400,
+          "add": 0
+        },
+        "m8": {
+          "usage": 0,
+          "add": 0
+        },
+        "m9": {
+          "usage": 0,
+          "add": 0
+        },
+        "m10": {
+          "usage": 0,
+          "add": 0
+        }
+      },
+      "products": {
+        "p1": 0.632,
+        "p2": 21.582,
+        "p3": 10.232,
+        "p4": 0
+      },
+      "note": "",
+      "ts": 1783944000000
+    },
+    {
+      "id": "r23",
+      "date": "2026-07-14",
+      "shift": "night",
+      "materials": {
+        "m1": {
+          "usage": 18,
+          "add": 0
+        },
+        "m2": {
+          "usage": 16.2,
+          "add": 0
+        },
+        "m3": {
+          "usage": 1.5,
+          "add": 0
+        },
+        "m4": {
+          "usage": 10,
+          "add": 50
+        },
+        "m5": {
+          "usage": 2.2,
+          "add": 0
+        },
+        "m6": {
+          "usage": 0.5,
+          "add": 0
+        },
+        "m7": {
+          "usage": 1400,
+          "add": 0
+        },
+        "m8": {
+          "usage": 0,
+          "add": 0
+        },
+        "m9": {
+          "usage": 0,
+          "add": 0
+        },
+        "m10": {
+          "usage": 0,
+          "add": 0
+        }
+      },
+      "products": {
+        "p1": 1.295,
+        "p2": 30.55,
+        "p3": 15.716,
+        "p4": 6.207
+      },
+      "note": "",
+      "ts": 1784030400000
+    },
+    {
+      "id": "r24",
+      "date": "2026-07-15",
+      "shift": "night",
+      "materials": {
+        "m1": {
+          "usage": 30,
+          "add": 33
+        },
+        "m2": {
+          "usage": 27,
+          "add": 33
+        },
+        "m3": {
+          "usage": 3,
+          "add": 0
+        },
+        "m4": {
+          "usage": 10,
+          "add": 0
+        },
+        "m5": {
+          "usage": 2.5,
+          "add": 0
+        },
+        "m6": {
+          "usage": 1,
+          "add": 0
+        },
+        "m7": {
+          "usage": 1600,
+          "add": 0
+        },
+        "m8": {
+          "usage": 0,
+          "add": 0
+        },
+        "m9": {
+          "usage": 0,
+          "add": 0
+        },
+        "m10": {
+          "usage": 0,
+          "add": 0
+        }
+      },
+      "products": {
+        "p1": 2.45,
+        "p2": 41.634,
+        "p3": 21.436,
+        "p4": 13.406
+      },
+      "note": "",
+      "ts": 1784116800000
+    },
+    {
+      "id": "r25",
+      "date": "2026-07-16",
+      "shift": "day",
+      "materials": {
+        "m1": {
+          "usage": 18,
+          "add": 33
+        },
+        "m2": {
+          "usage": 16.2,
+          "add": 0
+        },
+        "m3": {
+          "usage": 1.8,
+          "add": 0
+        },
+        "m4": {
+          "usage": 10,
+          "add": 25
+        },
+        "m5": {
+          "usage": 1.5,
+          "add": 0
+        },
+        "m6": {
+          "usage": 0.5,
+          "add": 0
+        },
+        "m7": {
+          "usage": 1500,
+          "add": 0
+        },
+        "m8": {
+          "usage": 0,
+          "add": 0
+        },
+        "m9": {
+          "usage": 0,
+          "add": 0
+        },
+        "m10": {
+          "usage": 0,
+          "add": 0
+        }
+      },
+      "products": {
+        "p1": 1.062,
+        "p2": 16.616,
+        "p3": 14.222,
+        "p4": 9.849
+      },
+      "note": "",
+      "ts": 1784160000000
+    },
+    {
+      "id": "r26",
+      "date": "2026-07-16",
+      "shift": "night",
+      "materials": {
+        "m1": {
+          "usage": 18,
+          "add": 0
+        },
+        "m2": {
+          "usage": 16.2,
+          "add": 0
+        },
+        "m3": {
+          "usage": 1.8,
+          "add": 0
+        },
+        "m4": {
+          "usage": 10,
+          "add": 0
+        },
+        "m5": {
+          "usage": 1.5,
+          "add": 0
+        },
+        "m6": {
+          "usage": 0.5,
+          "add": 0
+        },
+        "m7": {
+          "usage": 1500,
+          "add": 0
+        },
+        "m8": {
+          "usage": 0,
+          "add": 0
+        },
+        "m9": {
+          "usage": 0,
+          "add": 0
+        },
+        "m10": {
+          "usage": 0,
+          "add": 0
+        }
+      },
+      "products": {
+        "p1": 1.025,
+        "p2": 25.064,
+        "p3": 13.624,
+        "p4": 8.623
+      },
+      "note": "",
+      "ts": 1784203200000
+    },
+    {
+      "id": "r27",
+      "date": "2026-07-17",
+      "shift": "day",
+      "materials": {
+        "m1": {
+          "usage": 18,
+          "add": 60
+        },
+        "m2": {
+          "usage": 16.2,
+          "add": 33
+        },
+        "m3": {
+          "usage": 1.8,
+          "add": 0
+        },
+        "m4": {
+          "usage": 10,
+          "add": 0
+        },
+        "m5": {
+          "usage": 1,
+          "add": 0
+        },
+        "m6": {
+          "usage": 0.5,
+          "add": 15
+        },
+        "m7": {
+          "usage": 1400,
+          "add": 0
+        },
+        "m8": {
+          "usage": 0,
+          "add": 0
+        },
+        "m9": {
+          "usage": 0,
+          "add": 0
+        },
+        "m10": {
+          "usage": 0,
+          "add": 0
+        }
+      },
+      "products": {
+        "p1": 1.043,
+        "p2": 30.443,
+        "p3": 12.823,
+        "p4": 0
+      },
+      "note": "",
+      "ts": 1784246400000
+    },
+    {
+      "id": "r28",
+      "date": "2026-07-17",
+      "shift": "night",
+      "materials": {
+        "m1": {
+          "usage": 18,
+          "add": 0
+        },
+        "m2": {
+          "usage": 16.2,
+          "add": 0
+        },
+        "m3": {
+          "usage": 1.8,
+          "add": 0
+        },
+        "m4": {
+          "usage": 10,
+          "add": 20
+        },
+        "m5": {
+          "usage": 1.1,
+          "add": 0
+        },
+        "m6": {
+          "usage": 0.5,
+          "add": 0
+        },
+        "m7": {
+          "usage": 5400,
+          "add": 0
+        },
+        "m8": {
+          "usage": 0,
+          "add": 0
+        },
+        "m9": {
+          "usage": 0,
+          "add": 0
+        },
+        "m10": {
+          "usage": 0,
+          "add": 0
+        }
+      },
+      "products": {
+        "p1": 0.91,
+        "p2": 23.429,
+        "p3": 16.403,
+        "p4": 0
+      },
+      "note": "",
+      "ts": 1784289600000
+    },
+    {
+      "id": "r29",
+      "date": "2026-07-18",
+      "shift": "day",
+      "materials": {
+        "m1": {
+          "usage": 0,
+          "add": 0
+        },
+        "m2": {
+          "usage": 0,
+          "add": 0
+        },
+        "m3": {
+          "usage": 2.5,
+          "add": 0
+        },
+        "m4": {
+          "usage": 0,
+          "add": 0
+        },
+        "m5": {
+          "usage": 0,
+          "add": 0
+        },
+        "m6": {
+          "usage": 0,
+          "add": 0
+        },
+        "m7": {
+          "usage": 1400,
+          "add": 0
+        },
+        "m8": {
+          "usage": 8,
+          "add": 0
+        },
+        "m9": {
+          "usage": 0,
+          "add": 0
+        },
+        "m10": {
+          "usage": 0,
+          "add": 0
+        }
+      },
+      "products": {
+        "p1": 0,
+        "p2": 30.568,
+        "p3": 12.794,
+        "p4": 2.213
+      },
+      "note": "处理黄泥",
+      "ts": 1784332800000
+    },
+    {
+      "id": "r30",
+      "date": "2026-07-18",
+      "shift": "night",
+      "materials": {
+        "m1": {
+          "usage": 0,
+          "add": 0
+        },
+        "m2": {
+          "usage": 0,
+          "add": 0
+        },
+        "m3": {
+          "usage": 4.4,
+          "add": 0
+        },
+        "m4": {
+          "usage": 0,
+          "add": 0
+        },
+        "m5": {
+          "usage": 0,
+          "add": 0
+        },
+        "m6": {
+          "usage": 0,
+          "add": 0
+        },
+        "m7": {
+          "usage": 0,
+          "add": 0
+        },
+        "m8": {
+          "usage": 29.5,
+          "add": 0
+        },
+        "m9": {
+          "usage": 2.4,
+          "add": 0
+        },
+        "m10": {
+          "usage": 5.6,
+          "add": 0
+        }
+      },
+      "products": {
+        "p1": 0,
+        "p2": 12.948,
+        "p3": 12.023,
+        "p4": 10.885
+      },
+      "note": "",
+      "ts": 1784376000000
+    },
+    {
+      "id": "r31",
+      "date": "2026-07-19",
+      "shift": "day",
+      "materials": {
+        "m1": {
+          "usage": 0,
+          "add": 0
+        },
+        "m2": {
+          "usage": 0,
+          "add": 0
+        },
+        "m3": {
+          "usage": 4.4,
+          "add": 33
+        },
+        "m4": {
+          "usage": 0,
+          "add": 0
+        },
+        "m5": {
+          "usage": 2.4,
+          "add": 0
+        },
+        "m6": {
+          "usage": 0,
+          "add": 0
+        },
+        "m7": {
+          "usage": 0,
+          "add": 0
+        },
+        "m8": {
+          "usage": 24,
+          "add": 0
+        },
+        "m9": {
+          "usage": 1.57,
+          "add": 0
+        },
+        "m10": {
+          "usage": 3.4,
+          "add": 33
+        }
+      },
+      "products": {
+        "p1": 1.306,
+        "p2": 15,
+        "p3": 4.036,
+        "p4": 6.572
+      },
+      "note": "",
+      "ts": 1784419200000
+    },
+    {
+      "id": "r32",
+      "date": "2026-07-19",
+      "shift": "night",
+      "materials": {
+        "m1": {
+          "usage": 0,
+          "add": 0
+        },
+        "m2": {
+          "usage": 0,
+          "add": 0
+        },
+        "m3": {
+          "usage": 6.6,
+          "add": 0
+        },
+        "m4": {
+          "usage": 0,
+          "add": 0
+        },
+        "m5": {
+          "usage": 0,
+          "add": 0
+        },
+        "m6": {
+          "usage": 0,
+          "add": 0
+        },
+        "m7": {
+          "usage": 0,
+          "add": 0
+        },
+        "m8": {
+          "usage": 24,
+          "add": 0
+        },
+        "m9": {
+          "usage": 2.4,
+          "add": 0
+        },
+        "m10": {
+          "usage": 8,
+          "add": 0
+        }
+      },
+      "products": {
+        "p1": 1.65,
+        "p2": 19.617,
+        "p3": 4,
+        "p4": 11.324
+      },
+      "note": "",
+      "ts": 1784462400000
+    },
+    {
+      "id": "r33",
+      "date": "2026-07-20",
+      "shift": "day",
+      "materials": {
+        "m1": {
+          "usage": 0,
+          "add": 0
+        },
+        "m2": {
+          "usage": 0,
+          "add": 0
+        },
+        "m3": {
+          "usage": 6.6,
+          "add": 0
+        },
+        "m4": {
+          "usage": 0,
+          "add": 0
+        },
+        "m5": {
+          "usage": 0,
+          "add": 0
+        },
+        "m6": {
+          "usage": 0,
+          "add": 0
+        },
+        "m7": {
+          "usage": 0,
+          "add": 0
+        },
+        "m8": {
+          "usage": 24,
+          "add": 0
+        },
+        "m9": {
+          "usage": 2.4,
+          "add": 0
+        },
+        "m10": {
+          "usage": 8,
+          "add": 0
+        }
+      },
+      "products": {
+        "p1": 0.88,
+        "p2": 10.675,
+        "p3": 0.86,
+        "p4": 3.621
+      },
+      "note": "",
+      "ts": 1784505600000
+    },
+    {
+      "id": "r34",
+      "date": "2026-07-20",
+      "shift": "night",
+      "materials": {
+        "m1": {
+          "usage": 0,
+          "add": 0
+        },
+        "m2": {
+          "usage": 0,
+          "add": 0
+        },
+        "m3": {
+          "usage": 6.6,
+          "add": 0
+        },
+        "m4": {
+          "usage": 0,
+          "add": 0
+        },
+        "m5": {
+          "usage": 0,
+          "add": 0
+        },
+        "m6": {
+          "usage": 0,
+          "add": 0
+        },
+        "m7": {
+          "usage": 0,
+          "add": 0
+        },
+        "m8": {
+          "usage": 24,
+          "add": 0
+        },
+        "m9": {
+          "usage": 2.1,
+          "add": 0
+        },
+        "m10": {
+          "usage": 8,
+          "add": 0
+        }
+      },
+      "products": {
+        "p1": 0.785,
+        "p2": 13.073,
+        "p3": 0.544,
+        "p4": 0
+      },
+      "note": "",
+      "ts": 1784548800000
+    },
+    {
+      "id": "r35",
+      "date": "2026-07-21",
+      "shift": "day",
+      "materials": {
+        "m1": {
+          "usage": 0,
+          "add": 0
+        },
+        "m2": {
+          "usage": 0,
+          "add": 0
+        },
+        "m3": {
+          "usage": 9.3,
+          "add": 0
+        },
+        "m4": {
+          "usage": 0,
+          "add": 0
+        },
+        "m5": {
+          "usage": 1,
+          "add": 0
+        },
+        "m6": {
+          "usage": 0,
+          "add": 0
+        },
+        "m7": {
+          "usage": 0,
+          "add": 0
+        },
+        "m8": {
+          "usage": 32,
+          "add": 0
+        },
+        "m9": {
+          "usage": 2.4,
+          "add": 0
+        },
+        "m10": {
+          "usage": 8,
+          "add": 0
+        }
+      },
+      "products": {
+        "p1": 0.201,
+        "p2": 10.469,
+        "p3": 0,
+        "p4": 1.297
+      },
+      "note": "",
+      "ts": 1784592000000
+    },
+    {
+      "id": "r36",
+      "date": "2026-07-21",
+      "shift": "night",
+      "materials": {
+        "m1": {
+          "usage": 0,
+          "add": 0
+        },
+        "m2": {
+          "usage": 0,
+          "add": 0
+        },
+        "m3": {
+          "usage": 9.6,
+          "add": 0
+        },
+        "m4": {
+          "usage": 0,
+          "add": 0
+        },
+        "m5": {
+          "usage": 0,
+          "add": 0
+        },
+        "m6": {
+          "usage": 0,
+          "add": 0
+        },
+        "m7": {
+          "usage": 0,
+          "add": 0
+        },
+        "m8": {
+          "usage": 32,
+          "add": 0
+        },
+        "m9": {
+          "usage": 2.4,
+          "add": 0
+        },
+        "m10": {
+          "usage": 8,
+          "add": 0
+        }
+      },
+      "products": {
+        "p1": 0,
+        "p2": 26.672,
+        "p3": 0,
+        "p4": 13.765
+      },
+      "note": "",
+      "ts": 1784635200000
+    },
+    {
+      "id": "r37",
+      "date": "2026-07-22",
+      "shift": "day",
+      "materials": {
+        "m1": {
+          "usage": 0,
+          "add": 0
+        },
+        "m2": {
+          "usage": 0,
+          "add": 0
+        },
+        "m3": {
+          "usage": 7.8,
+          "add": 0
+        },
+        "m4": {
+          "usage": 0,
+          "add": 0
+        },
+        "m5": {
+          "usage": 0,
+          "add": 0
+        },
+        "m6": {
+          "usage": 0,
+          "add": 0
+        },
+        "m7": {
+          "usage": 0,
+          "add": 0
+        },
+        "m8": {
+          "usage": 24,
+          "add": 0
+        },
+        "m9": {
+          "usage": 1.8,
+          "add": 0
+        },
+        "m10": {
+          "usage": 6.5,
+          "add": 0
+        }
+      },
+      "products": {
+        "p1": 1.058,
+        "p2": 5.555,
+        "p3": 3.471,
+        "p4": 9.523
+      },
+      "note": "",
+      "ts": 1784678400000
+    },
+    {
+      "id": "r38",
+      "date": "2026-07-22",
+      "shift": "night",
+      "materials": {
+        "m1": {
+          "usage": 0,
+          "add": 0
+        },
+        "m2": {
+          "usage": 0,
+          "add": 0
+        },
+        "m3": {
+          "usage": 10.8,
+          "add": 33
+        },
+        "m4": {
+          "usage": 0,
+          "add": 0
+        },
+        "m5": {
+          "usage": 3,
+          "add": 33
+        },
+        "m6": {
+          "usage": 0,
+          "add": 0
+        },
+        "m7": {
+          "usage": 0,
+          "add": 0
+        },
+        "m8": {
+          "usage": 24,
+          "add": 0
+        },
+        "m9": {
+          "usage": 1.8,
+          "add": 0
+        },
+        "m10": {
+          "usage": 8,
+          "add": 0
+        }
+      },
+      "products": {
+        "p1": 1.255,
+        "p2": 22.445,
+        "p3": 3.908,
+        "p4": 8.93
+      },
+      "note": "",
+      "ts": 1784721600000
+    },
+    {
+      "id": "r39",
+      "date": "2026-07-23",
+      "shift": "day",
+      "materials": {
+        "m1": {
+          "usage": 0,
+          "add": 0
+        },
+        "m2": {
+          "usage": 0,
+          "add": 0
+        },
+        "m3": {
+          "usage": 0,
+          "add": 0
+        },
+        "m4": {
+          "usage": 0,
+          "add": 0
+        },
+        "m5": {
+          "usage": 0,
+          "add": 0
+        },
+        "m6": {
+          "usage": 0,
+          "add": 0
+        },
+        "m7": {
+          "usage": 0,
+          "add": 0
+        },
+        "m8": {
+          "usage": 0,
+          "add": 0
+        },
+        "m9": {
+          "usage": 0,
+          "add": 0
+        },
+        "m10": {
+          "usage": 0,
+          "add": 0
+        }
+      },
+      "products": {
+        "p1": 0.263,
+        "p2": 0,
+        "p3": 0,
+        "p4": 0
+      },
+      "note": "",
+      "ts": 1784764800000
+    },
+    {
+      "id": "r40",
+      "date": "2026-07-23",
+      "shift": "night",
+      "materials": {
+        "m1": {
+          "usage": 0,
+          "add": 0
+        },
+        "m2": {
+          "usage": 0,
+          "add": 0
+        },
+        "m3": {
+          "usage": 10.8,
+          "add": 0
+        },
+        "m4": {
+          "usage": 0,
+          "add": 0
+        },
+        "m5": {
+          "usage": 1.5,
+          "add": 0
+        },
+        "m6": {
+          "usage": 0,
+          "add": 0
+        },
+        "m7": {
+          "usage": 0,
+          "add": 0
+        },
+        "m8": {
+          "usage": 32,
+          "add": 0
+        },
+        "m9": {
+          "usage": 2.4,
+          "add": 33
+        },
+        "m10": {
+          "usage": 8,
+          "add": 66
+        }
+      },
+      "products": {
+        "p1": 1.022,
+        "p2": 18.816,
+        "p3": 4.76,
+        "p4": 10.118
+      },
+      "note": "",
+      "ts": 1784808000000
+    }
+  ],
+  "inventory": {
+    "m1": 141,
+    "m2": 191,
+    "m3": 3.7,
+    "m4": 75,
+    "m5": 36.77,
+    "m6": 14.5
+  },
+  "initSet": {
+    "m1": true,
+    "m2": true,
+    "m3": true,
+    "m4": true,
+    "m5": true,
+    "m6": true
+  },
+  "adminUser": "admin",
+  "adminPass": "admin123",
+  "viewerPass": "112233"
+}
